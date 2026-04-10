@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>if U skill â GestiÃ³n RRHH</title>
+  <title>if U skill — Gestión RRHH</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
@@ -35,7 +35,7 @@
     .tab-panel{display:none}.tab-panel.active{display:block}
     .section-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:14px}
 
-    /* ââ FILTER BAR ââ */
+    /* ── FILTER BAR ── */
     .filter-bar{
       display:flex;align-items:center;gap:10px;flex-wrap:wrap;
       background:var(--white);border-radius:12px;padding:14px 18px;
@@ -104,7 +104,7 @@
     .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;gap:4px}
     .b-si{background:#dcfce7;color:#15803d}.b-no{background:#fee2e2;color:#b91c1c}
     .b-jun{background:#dbeafe;color:#1d4ed8}.b-semi{background:#fef9c3;color:#854d0e}
-    .b-sun{background:var(--green-dim);color:#15803d;border:1px solid rgba(46,204,113,.3)}
+    .b-sen{background:var(--green-dim);color:#15803d;border:1px solid rgba(46,204,113,.3)}
     .b-riesgo{background:#fee2e2;color:#b91c1c}.b-anticipo{background:#dcfce7;color:#15803d}
     .b-monto{background:var(--green-dim);color:#15803d;font-variant-numeric:tabular-nums;font-weight:800;border:1px solid rgba(46,204,113,.25)}
 
@@ -132,9 +132,9 @@
     .modal-h span{font-size:14px;font-weight:800;color:#fff;letter-spacing:.2px}
     .modal-x{border:none;background:rgba(255,255,255,.1);font-size:18px;cursor:pointer;color:rgba(255,255,255,.7);width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s}
     .modal-x:hover{background:rgba(255,255,255,.2);color:#fff}
-    .modal-b{padding:24px 26py}
+    .modal-b{padding:24px 26px}
     .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .fg{display:flex;flex-direction:column;gap:5py}
+    .fg{display:flex;flex-direction:column;gap:5px}
     .fg.full{grid-column:1/-1}
     .fg label{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}
     .fg input,.fg select{padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'Inter',sans-serif;font-size:13.5px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;background:#fff}
@@ -161,22 +161,22 @@
   <div class="brand">
     <div class="brand-logo">if U <span>skill</span></div>
     <div class="brand-divider"></div>
-    <div class="brand-app">GestiÃ³n de RRHH</div>
+    <div class="brand-app">Gestión de RRHH</div>
   </div>
   <div class="header-tag">Dashboard Interno</div>
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" id="tbtn-rec" onclick="switchTab('rec')">ð Reclutamiento</button>
-  <button class="tab-btn" id="tbtn-out" onclick="switchTab('out')">ð¤ Outplacement</button>
+  <button class="tab-btn active" id="tbtn-rec" onclick="switchTab('rec')">🔍 Reclutamiento</button>
+  <button class="tab-btn" id="tbtn-out" onclick="switchTab('out')">🤝 Outplacement</button>
 </nav>
 
 <div class="main">
 
-  <!-- ââ RECLUTAMIENTO ââ -->
+  <!-- ══ RECLUTAMIENTO ══ -->
   <div class="tab-panel active" id="panel-rec">
 
-    <div class="section-label">01. Reclutamiento â Filtros</div>
+    <div class="section-label">01. Reclutamiento — Filtros</div>
     <div class="filter-bar">
       <span class="filter-label">Mes</span>
       <select class="filter-select" id="f-rec-mes" onchange="applyFilter('rec')">
@@ -188,37 +188,37 @@
         <option value="9">Septiembre</option><option value="10">Octubre</option>
         <option value="11">Noviembre</option><option value="12">Diciembre</option>
       </select>
-      <span class="filter-label" style="margin-left:6px">AÃ±o</span>
+      <span class="filter-label" style="margin-left:6px">Año</span>
       <select class="filter-select" id="f-rec-anio" onchange="applyFilter('rec')">
-        <option value="">Todos los aÃ±os</option>
+        <option value="">Todos los años</option>
         <option value="2024">2024</option><option value="2025">2025</option>
         <option value="2026">2026</option><option value="2027">2027</option>
         <option value="2028">2028</option>
       </select>
       <div class="filter-sep"></div>
-      <button class="filter-clear" onclick="clearFilter('rec')">â Limpiar</button>
+      <button class="filter-clear" onclick="clearFilter('rec')">✕ Limpiar</button>
       <div class="filter-badge" id="fbadge-rec">Todos los registros</div>
     </div>
 
     <div class="section-label">KPIs</div>
     <div class="kpi-grid kpi-6" id="kpi-rec"></div>
 
-    <div class="section-label">AnÃ¡lisis visual</div>
+    <div class="section-label">Análisis visual</div>
     <div class="charts-grid charts-3">
-      <div class="chart-card"><div class="chart-title">DistribuciÃ³n por Seniority</div><div class="chart-wrap"><canvas id="ch-seniority"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Distribución por Seniority</div><div class="chart-wrap"><canvas id="ch-seniority"></canvas></div></div>
       <div class="chart-card"><div class="chart-title">Tipo de Servicio</div><div class="chart-wrap"><canvas id="ch-service"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Honorarios por BÃºsqueda (ARS)</div><div class="chart-wrap"><canvas id="ch-honorarios"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Honorarios por Búsqueda (ARS)</div><div class="chart-wrap"><canvas id="ch-honorarios"></canvas></div></div>
     </div>
 
-    <div class="section-label">BÃºsquedas activas</div>
+    <div class="section-label">Búsquedas activas</div>
     <div class="table-card">
       <div class="table-top">
         <div class="table-title">Procesos en curso</div>
-        <button class="add-btn" onclick="openModal('rec')">+ Nueva bÃºsqueda</button>
+        <button class="add-btn" onclick="openModal('rec')">+ Nueva búsqueda</button>
       </div>
       <div class="tbl-scroll">
         <table><thead><tr>
-          <th>Empresa</th><th>BÃºsqueda</th><th>Seniority</th><th>Inicio</th><th>DÃ­as</th>
+          <th>Empresa</th><th>Búsqueda</th><th>Seniority</th><th>Inicio</th><th>Días</th>
           <th>Candidatos</th><th>Recruiter</th><th>Sueldo revelado</th>
           <th>Encuesta</th><th>Servicio</th><th>Honorarios (ARS)</th><th></th>
         </tr></thead><tbody id="tbody-rec"></tbody></table>
@@ -226,10 +226,10 @@
     </div>
   </div>
 
-  <!-- ââ OUTPLACEMENT ââ -->
+  <!-- ══ OUTPLACEMENT ══ -->
   <div class="tab-panel" id="panel-out">
 
-    <div class="section-label">02. Outplacement â Filtros</div>
+    <div class="section-label">02. Outplacement — Filtros</div>
     <div class="filter-bar">
       <span class="filter-label">Mes</span>
       <select class="filter-select" id="f-out-mes" onchange="applyFilter('out')">
@@ -241,24 +241,24 @@
         <option value="9">Septiembre</option><option value="10">Octubre</option>
         <option value="11">Noviembre</option><option value="12">Diciembre</option>
       </select>
-      <span class="filter-label" style="margin-left:6px">AÃ±o</span>
+      <span class="filter-label" style="margin-left:6px">Año</span>
       <select class="filter-select" id="f-out-anio" onchange="applyFilter('out')">
-        <option value="">Todos los aÃ±os</option>
+        <option value="">Todos los años</option>
         <option value="2024">2024</option><option value="2025">2025</option>
         <option value="2026">2026</option><option value="2027">2027</option>
         <option value="2028">2028</option>
       </select>
       <div class="filter-sep"></div>
-      <button class="filter-clear" onclick="clearFilter('out')">â Limpiar</button>
+      <button class="filter-clear" onclick="clearFilter('out')">✕ Limpiar</button>
       <div class="filter-badge" id="fbadge-out">Todos los registros</div>
     </div>
 
     <div class="section-label">KPIs</div>
     <div class="kpi-grid kpi-5" id="kpi-out"></div>
 
-    <div class="section-label">AnÃ¡lisis visual</div>
+    <div class="section-label">Análisis visual</div>
     <div class="charts-grid charts-2">
-      <div class="chart-card"><div class="chart-title">DistribuciÃ³n de Reuniones Realizadas</div><div class="chart-wrap"><canvas id="ch-meetings"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Distribución de Reuniones Realizadas</div><div class="chart-wrap"><canvas id="ch-meetings"></canvas></div></div>
       <div class="chart-card"><div class="chart-title">Estado de Encuestas</div><div class="chart-wrap"><canvas id="ch-surveys"></canvas></div></div>
     </div>
 
@@ -279,27 +279,27 @@
 </div>
 
 <footer class="app-footer">
-  <b>if U skill</b> Â· Dashboard de GestiÃ³n RRHH Â· Datos guardados localmente en este navegador
+  <b>if U skill</b> · Dashboard de Gestión RRHH · Datos guardados localmente en este navegador
 </footer>
 
 <!-- MODAL RECLUTAMIENTO -->
 <div class="overlay" id="ov-rec" onclick="overlayClick(event,'rec')">
   <div class="modal">
-    <div class="modal-h"><span id="mtitle-rec">Nueva BÃºsqueda</span><button class="modal-x" onclick="closeModal('rec')">Ã</button></div>
+    <div class="modal-h"><span id="mtitle-rec">Nueva Búsqueda</span><button class="modal-x" onclick="closeModal('rec')">×</button></div>
     <div class="modal-b">
       <div class="form-grid">
         <div class="fg"><label>Empresa</label><input id="r-empresa" placeholder="Ej: Acme Corp"/></div>
-        <div class="fg"><label>BÃºsqueda (puesto)</label><input id="r-busqueda" placeholder="Ej: Data Engineer"/></div>
+        <div class="fg"><label>Búsqueda (puesto)</label><input id="r-busqueda" placeholder="Ej: Data Engineer"/></div>
         <div class="fg"><label>Fecha de inicio</label><input id="r-fecha" type="date"/></div>
         <div class="fg"><label>Seniority</label>
           <select id="r-seniority"><option value="">Seleccionar...</option><option>Junior</option><option>Semi Senior</option><option>Senior</option></select></div>
-        <div class="fg"><label>Tiempo de bÃºsqueda (dÃ­as)</label><input id="r-tiempo" type="number" min="0" placeholder="0"/></div>
+        <div class="fg"><label>Tiempo de búsqueda (días)</label><input id="r-tiempo" type="number" min="0" placeholder="0"/></div>
         <div class="fg"><label>Candidatos presentados</label><input id="r-candidatos" type="number" min="0" placeholder="0"/></div>
         <div class="fg"><label>Recruiter asignado</label><input id="r-recruiter" placeholder="Nombre del recruiter"/></div>
         <div class="fg"><label>Sueldo revelado</label>
-          <select id="r-sueldo"><option value="">Seleccionar...</option><option>SÃ­</option><option>No</option></select></div>
+          <select id="r-sueldo"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select></div>
         <div class="fg"><label>Encuesta enviada</label>
-          <select id="r-encuesta"><option value="">Seleccionar...</option><option>SÃ­</option><option>No</option></select></div>
+          <select id="r-encuesta"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select></div>
         <div class="fg"><label>Tipo de servicio</label>
           <select id="r-servicio"><option value="">Seleccionar...</option><option>A riesgo</option><option>Con anticipo</option></select></div>
         <div class="fg"><label>Honorarios estimados (ARS)</label>
@@ -316,7 +316,7 @@
 <!-- MODAL OUTPLACEMENT -->
 <div class="overlay" id="ov-out" onclick="overlayClick(event,'out')">
   <div class="modal">
-    <div class="modal-h"><span id="mtitle-out">Nuevo Candidato</span><button class="modal-x" onclick="closeModal('out')">Ã</button></div>
+    <div class="modal-h"><span id="mtitle-out">Nuevo Candidato</span><button class="modal-x" onclick="closeModal('out')">×</button></div>
     <div class="modal-b">
       <div class="form-grid">
         <div class="fg full"><label>Nombre del candidato</label><input id="o-candidato" placeholder="Nombre completo"/></div>
@@ -324,7 +324,7 @@
         <div class="fg"><label>Reuniones realizadas</label>
           <select id="o-reuniones"><option value="">Seleccionar...</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
         <div class="fg"><label>Encuesta enviada</label>
-          <select id="o-encuesta"><option value="">Seleccionar...</option><option>SÃ­</option><option>No</option></select></div>
+          <select id="o-encuesta"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select></div>
         <div class="fg"><label>Honorarios estimados (ARS)</label>
           <div class="ars-wrap"><input id="o-honorarios" type="number" min="0" placeholder="0"/></div></div>
       </div>
@@ -337,7 +337,7 @@
 </div>
 
 <script>
-// ââ DATA ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── DATA ──────────────────────────────────────────────────────────────────────
 let recData=JSON.parse(localStorage.getItem('ifuskill-rec')||'null');
 let outData=JSON.parse(localStorage.getItem('ifuskill-out')||'null');
 
@@ -345,19 +345,19 @@ const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','
 
 if(!recData){
   recData=[
-    {id:1,empresa:'Acme Corp',busqueda:'Desarrollador Full Stack',seniority:'Senior',fecha:'2026-02-10',tiempo:25,candidatos:8,recruiter:'MarÃ­a GarcÃ­a',sueldo:'SÃ­',encuesta:'SÃ­',servicio:'Con anticipo',honorarios:850000},
-    {id:2,empresa:'TechStart',busqueda:'Analista de Datos',seniority:'Semi Senior',fecha:'2026-03-05',tiempo:18,candidatos:5,recruiter:'Juan PÃ©rez',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:600000},
-    {id:3,empresa:'Globex SA',busqueda:'Gerente de Marketing',seniority:'Senior',fecha:'2026-01-20',tiempo:40,candidatos:12,recruiter:'MarÃ­a GarcÃ­a',sueldo:'SÃ­',encuesta:'SÃ­',servicio:'Con anticipo',honorarios:1200000},
-    {id:4,empresa:'Initech',busqueda:'Asistente Administrativo',seniority:'Junior',fecha:'2026-04-01',tiempo:10,candidatos:15,recruiter:'Ana LÃ³pez',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:320000},
-    {id:5,empresa:'Cyberdyne',busqueda:'UX Designer',seniority:'Semi Senior',fecha:'2026-04-08',tiempo:32,candidatos:7,recruiter:'Ana LÃ³pez',sueldo:'SÃ­',encuesta:'SÃ­',servicio:'Con anticipo',honorarios:750000},
+    {id:1,empresa:'Acme Corp',busqueda:'Desarrollador Full Stack',seniority:'Senior',fecha:'2026-02-10',tiempo:25,candidatos:8,recruiter:'María García',sueldo:'Sí',encuesta:'Sí',servicio:'Con anticipo',honorarios:850000},
+    {id:2,empresa:'TechStart',busqueda:'Analista de Datos',seniority:'Semi Senior',fecha:'2026-03-05',tiempo:18,candidatos:5,recruiter:'Juan Pérez',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:600000},
+    {id:3,empresa:'Globex SA',busqueda:'Gerente de Marketing',seniority:'Senior',fecha:'2026-01-20',tiempo:40,candidatos:12,recruiter:'María García',sueldo:'Sí',encuesta:'Sí',servicio:'Con anticipo',honorarios:1200000},
+    {id:4,empresa:'Initech',busqueda:'Asistente Administrativo',seniority:'Junior',fecha:'2026-04-01',tiempo:10,candidatos:15,recruiter:'Ana López',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:320000},
+    {id:5,empresa:'Cyberdyne',busqueda:'UX Designer',seniority:'Semi Senior',fecha:'2026-04-08',tiempo:32,candidatos:7,recruiter:'Ana López',sueldo:'Sí',encuesta:'Sí',servicio:'Con anticipo',honorarios:750000},
   ];persist('rec');
 }
 if(!outData){
   outData=[
-    {id:1,candidato:'Carlos RodrÃ­guez',fecha:'2026-03-01',reuniones:'4',encuesta:'SÃ­',honorarios:480000},
-    {id:2,candidato:'LucÃ­a FernÃ¡ndez',fecha:'2026-03-15',reuniones:'3',encuesta:'No',honorarios:480000},
+    {id:1,candidato:'Carlos Rodríguez',fecha:'2026-03-01',reuniones:'4',encuesta:'Sí',honorarios:480000},
+    {id:2,candidato:'Lucía Fernández',fecha:'2026-03-15',reuniones:'3',encuesta:'No',honorarios:480000},
     {id:3,candidato:'Roberto Silva',fecha:'2026-04-01',reuniones:'2',encuesta:'No',honorarios:480000},
-    {id:4,candidato:'Andrea MartÃ­nez',fecha:'2026-04-05',reuniones:'1',encuesta:'No',honorarios:480000},
+    {id:4,candidato:'Andrea Martínez',fecha:'2026-04-05',reuniones:'1',encuesta:'No',honorarios:480000},
   ];persist('out');
 }
 
@@ -369,7 +369,7 @@ let fOut={mes:'',anio:''};
 
 function persist(t){localStorage.setItem('ifuskill-'+t,JSON.stringify(t==='rec'?recData:outData));}
 
-// ââ FILTER LOGIC ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── FILTER LOGIC ──────────────────────────────────────────────────────────────
 function getFiltered(data, f){
   if(!f.mes && !f.anio) return data;
   return data.filter(r=>{
@@ -424,10 +424,10 @@ function updateBadge(t, total, filtered){
   let parts=[];
   if(mesIdx) parts.push(MESES[mesIdx-1]);
   if(anio) parts.push(anio);
-  el.textContent=parts.join(' ')+' Â· '+filtered+' de '+total;
+  el.textContent=parts.join(' ')+' · '+filtered+' de '+total;
 }
 
-// ââ TABS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── TABS ─────────────────────────────────────────────────────────────────────
 function switchTab(t){
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -437,27 +437,27 @@ function switchTab(t){
 }
 function renderAll(){renderRecKPIs();renderOutKPIs();renderRecTable();renderOutTable();renderCharts();}
 
-// ââ FORMAT âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── FORMAT ───────────────────────────────────────────────────────────────────
 const fARS=n=>(!n&&n!==0)?'-':'$ '+Number(n).toLocaleString('es-AR',{minimumFractionDigits:0,maximumFractionDigits:0});
 const fDate=s=>s?new Date(s+'T00:00:00').toLocaleDateString('es-AR'):'-';
 
-// ââ KPIs âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── KPIs ─────────────────────────────────────────────────────────────────────
 function renderRecKPIs(){
   const data=filteredRec();
   updateBadge('rec',recData.length,data.length);
   const n=data.length;
   const avg=n?Math.round(data.reduce((a,r)=>a+(+r.tiempo||0),0)/n):0;
   const cands=data.reduce((a,r)=>a+(+r.candidatos||0),0);
-  const pS=n?Math.round(data.filter(r=>r.sueldo==='SÃ­').length/n*100):0;
-  const pE=n?Math.round(data.filter(r=>r.encuesta==='SÃ­').length/n*100):0;
+  const pS=n?Math.round(data.filter(r=>r.sueldo==='Sí').length/n*100):0;
+  const pE=n?Math.round(data.filter(r=>r.encuesta==='Sí').length/n*100):0;
   const hon=data.reduce((a,r)=>a+(+r.honorarios||0),0);
   document.getElementById('kpi-rec').innerHTML=[
-    {i:'ð',l:'Total bÃºsquedas',v:n,s:'procesos filtrados'},
-    {i:'â±',l:'Tiempo promedio',v:avg+'d',s:'dÃ­as por bÃºsqueda'},
-    {i:'ð¥',l:'Candidatos',v:cands,s:'presentados en total'},
-    {i:'ð°',l:'Sueldos revelados',v:pS+'%',s:'de las bÃºsquedas'},
-    {i:'ð',l:'Encuestas enviadas',v:pE+'%',s:'de las bÃºsquedas'},
-    {i:'ðµ',l:'Honorarios totales',v:fARS(hon),s:'estimado acumulado',dark:true},
+    {i:'🔍',l:'Total búsquedas',v:n,s:'procesos filtrados'},
+    {i:'⏱',l:'Tiempo promedio',v:avg+'d',s:'días por búsqueda'},
+    {i:'👥',l:'Candidatos',v:cands,s:'presentados en total'},
+    {i:'💰',l:'Sueldos revelados',v:pS+'%',s:'de las búsquedas'},
+    {i:'📋',l:'Encuestas enviadas',v:pE+'%',s:'de las búsquedas'},
+    {i:'💵',l:'Honorarios totales',v:fARS(hon),s:'estimado acumulado',dark:true},
   ].map(k=>`<div class="kpi-card${k.dark?' dark':''}"><span class="kpi-icon">${k.i}</span><div class="kpi-label">${k.l}</div><div class="kpi-value">${k.v}</div><div class="kpi-sub">${k.s}</div></div>`).join('');
 }
 
@@ -468,28 +468,28 @@ function renderOutKPIs(){
   const avgM=n?(data.reduce((a,r)=>a+(+r.reuniones||0),0)/n).toFixed(1):'0';
   const comp=data.filter(r=>r.reuniones==='4').length;
   const pC=n?Math.round(comp/n*100):0;
-  const pE=n?Math.round(data.filter(r=>r.encuesta==='SÃ­').length/n*100):0;
+  const pE=n?Math.round(data.filter(r=>r.encuesta==='Sí').length/n*100):0;
   const hon=data.reduce((a,r)=>a+(+r.honorarios||0),0);
   document.getElementById('kpi-out').innerHTML=[
-    {i:'ð¤',l:'Total candidatos',v:n,s:'en el perÃ­odo'},
-    {i:'ð¤',l:'Reuniones promedio',v:avgM,s:'de 4 posibles'},
-    {i:'â',l:'Procesos completos',v:pC+'%',s:comp+' de '+n+' candidatos'},
-    {i:'ð',l:'Encuestas enviadas',v:pE+'%',s:'de los candidatos'},
-    {i:'ðµ',l:'Honorarios totales',v:fARS(hon),s:'estimado acumulado',dark:true},
+    {i:'👤',l:'Total candidatos',v:n,s:'en el período'},
+    {i:'🤝',l:'Reuniones promedio',v:avgM,s:'de 4 posibles'},
+    {i:'✅',l:'Procesos completos',v:pC+'%',s:comp+' de '+n+' candidatos'},
+    {i:'📋',l:'Encuestas enviadas',v:pE+'%',s:'de los candidatos'},
+    {i:'💵',l:'Honorarios totales',v:fARS(hon),s:'estimado acumulado',dark:true},
   ].map(k=>`<div class="kpi-card${k.dark?' dark':''}"><span class="kpi-icon">${k.i}</span><div class="kpi-label">${k.l}</div><div class="kpi-value">${k.v}</div><div class="kpi-sub">${k.s}</div></div>`).join('');
 }
 
-// ââ TABLES âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-const senB=s=>({Junior:'<span class="badge b-jun">Junior</span>','Semi Senior':'<span class="badge b-semi">Semi Senior</span>',Senior:'<span class="badge b-sen">â Senior</span>'}[s]||'-');
-const ynB=v=>v?`<span class="badge ${v==='SÃ­'?'b-si':'b-no'}">${v==='SÃ­'?'â':'â'} ${v}</span>`:'-';
+// ── TABLES ───────────────────────────────────────────────────────────────────
+const senB=s=>({Junior:'<span class="badge b-jun">Junior</span>','Semi Senior':'<span class="badge b-semi">Semi Senior</span>',Senior:'<span class="badge b-sen">● Senior</span>'}[s]||'-');
+const ynB=v=>v?`<span class="badge ${v==='Sí'?'b-si':'b-no'}">${v==='Sí'?'✓':'✗'} ${v}</span>`:'-';
 const svcB=v=>({'A riesgo':'<span class="badge b-riesgo">A riesgo</span>','Con anticipo':'<span class="badge b-anticipo">Con anticipo</span>'}[v]||'-');
 
 function renderRecTable(){
   const data=filteredRec();
   const tb=document.getElementById('tbody-rec');
   if(!data.length){
-    const msg=recData.length?'Sin resultados para el filtro seleccionado.':'HacÃ© clic en <strong>+ Nueva bÃºsqueda</strong> para comenzar.';
-    tb.innerHTML<`<tr><td colspan="12"><div class="empty"><div class="empty-icon">${recData.length?'ð':'ð'}</div><p>${msg}</p></div></td></tr>`;return;
+    const msg=recData.length?'Sin resultados para el filtro seleccionado.':'Hacé clic en <strong>+ Nueva búsqueda</strong> para comenzar.';
+    tb.innerHTML=`<tr><td colspan="12"><div class="empty"><div class="empty-icon">${recData.length?'🔎':'🔍'}</div><p>${msg}</p></div></td></tr>`;return;
   }
   tb.innerHTML=data.map(r=>`<tr>
     <td><strong>${r.empresa||'-'}</strong></td><td>${r.busqueda||'-'}</td>
@@ -500,7 +500,7 @@ function renderRecTable(){
     <td>${r.recruiter||'-'}</td><td>${ynB(r.sueldo)}</td><td>${ynB(r.encuesta)}</td>
     <td>${svcB(r.servicio)}</td>
     <td><span class="badge b-monto">${fARS(r.honorarios)}</span></td>
-    <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editRec(${r.id})">âï¸</button><button class="abtn abtn-d" onclick="delRec(${r.id})">ðï¸</button></td>
+    <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editRec(${r.id})">✏️</button><button class="abtn abtn-d" onclick="delRec(${r.id})">🗑️</button></td>
   </tr>`).join('');
 }
 
@@ -508,8 +508,8 @@ function renderOutTable(){
   const data=filteredOut();
   const tb=document.getElementById('tbody-out');
   if(!data.length){
-    const msg=outData.length?'Sin resultados para el filtro seleccionado.':'HacÃ© clic en <strong>+ Nuevo candidato</strong> para comenzar.';
-    tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">${outData.length?'ð':'ð¤'}</div><p>${msg}</p></div></td></tr>`;return;
+    const msg=outData.length?'Sin resultados para el filtro seleccionado.':'Hacé clic en <strong>+ Nuevo candidato</strong> para comenzar.';
+    tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">${outData.length?'🔎':'🤝'}</div><p>${msg}</p></div></td></tr>`;return;
   }
   tb.innerHTML=data.map(r=>{
     const pct=r.reuniones?Math.round(+r.reuniones/4*100):0;
@@ -524,12 +524,12 @@ function renderOutTable(){
       </div></td>
       <td>${ynB(r.encuesta)}</td>
       <td><span class="badge b-monto">${fARS(r.honorarios)}</span></td>
-      <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editOut(${r.id})">âï¸</button><button class="abtn abtn-d" onclick="delOut(${r.id})">ðï¸</button></td>
+      <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editOut(${r.id})">✏️</button><button class="abtn abtn-d" onclick="delOut(${r.id})">🗑️</button></td>
     </tr>`;
   }).join('');
 }
 
-// ââ CHARTS (uses filtered data) âââââââââââââââââââââââââââââââââââââââââââââââ
+// ── CHARTS (uses filtered data) ───────────────────────────────────────────────
 function dc(id){if(CH[id]){CH[id].destroy();delete CH[id];}}
 const GREEN='#2ECC71';
 const DNUT={responsive:true,maintainAspectRatio:false,
@@ -553,7 +553,7 @@ function renderCharts(){
   dc('hon');
   const top=[...rec].sort((a,b)=>(b.honorarios||0)-(a.honorarios||0)).slice(0,6);
   CH['hon']=new Chart(document.getElementById('ch-honorarios'),{type:'bar',
-    data:{labels:top.map(r=>r.empresa.length>14?r.empresa.slice(0,14)+'â¦':r.empresa),
+    data:{labels:top.map(r=>r.empresa.length>14?r.empresa.slice(0,14)+'…':r.empresa),
       datasets:[{data:top.map(r=>r.honorarios||0),backgroundColor:GREEN,borderRadius:6,borderSkipped:false}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
       tooltip:{callbacks:{label:c=>' $ '+Number(c.raw).toLocaleString('es-AR')}}},
@@ -564,23 +564,23 @@ function renderCharts(){
   const mc={'1':0,'2':0,'3':0,'4':0};
   out.forEach(r=>{if(mc[r.reuniones]!==undefined)mc[r.reuniones]++;});
   CH['meet']=new Chart(document.getElementById('ch-meetings'),{type:'bar',
-    data:{labels:['1 reuniÃ³n','2 reuniones','3 reuniones','4 reuniones'],
+    data:{labels:['1 reunión','2 reuniones','3 reuniones','4 reuniones'],
       datasets:[{data:Object.values(mc),backgroundColor:['rgba(46,204,113,.25)','rgba(46,204,113,.5)','rgba(46,204,113,.75)',GREEN],borderRadius:6,borderSkipped:false}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
       scales:{y:{beginAtZero:true,ticks:{stepSize:1,font:{family:'Inter',size:10},color:'#6b7a99'},grid:{color:'#f0f2f5'}},
         x:{grid:{display:false},ticks:{font:{family:'Inter',size:10},color:'#6b7a99'}}}}});
 
   dc('surv');
-  const enc={Enviada:out.filter(r=>r.encuesta==='SÃ­').length,Pendiente:out.filter(r=>r.encuesta!=='SÃ­').length};
+  const enc={Enviada:out.filter(r=>r.encuesta==='Sí').length,Pendiente:out.filter(r=>r.encuesta!=='Sí').length};
   CH['surv']=new Chart(document.getElementById('ch-surveys'),{type:'doughnut',
     data:{labels:Object.keys(enc),datasets:[{data:Object.values(enc),backgroundColor:[GREEN,'#fca5a5'],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
 }
 
-// ââ MODAL ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── MODAL ────────────────────────────────────────────────────────────────────
 function openModal(t,id=null){
   if(t==='rec'){
     eRecId=id;
-    document.getElementById('mtitle-rec').textContent=id?'Editar BÃºsqueda':'Nueva BÃºsqueda';
+    document.getElementById('mtitle-rec').textContent=id?'Editar Búsqueda':'Nueva Búsqueda';
     const f=['empresa','busqueda','fecha','seniority','tiempo','candidatos','recruiter','sueldo','encuesta','servicio','honorarios'];
     if(id){const r=recData.find(x=>x.id===id);f.forEach(k=>{document.getElementById('r-'+k).value=r[k]||'';})}
     else f.forEach(k=>document.getElementById('r-'+k).value='');
@@ -597,7 +597,7 @@ function openModal(t,id=null){
 function closeModal(t){document.getElementById('ov-'+t).classList.remove('open');}
 function overlayClick(e,t){if(e.target===e.currentTarget)closeModal(t);}
 
-// ââ SAVE âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+// ── SAVE ─────────────────────────────────────────────────────────────────────
 function saveRec(){
   const e={
     empresa:document.getElementById('r-empresa').value.trim(),
@@ -612,7 +612,7 @@ function saveRec(){
     servicio:document.getElementById('r-servicio').value,
     honorarios:+document.getElementById('r-honorarios').value||0,
   };
-  if(!e.empresa||!e.busqueda){alert('CompletÃ¡ Empresa y BÃºsqueda.');return;}
+  if(!e.empresa||!e.busqueda){alert('Completá Empresa y Búsqueda.');return;}
   if(eRecId){const i=recData.findIndex(x=>x.id===eRecId);recData[i]={...recData[i],...e};}
   else{e.id=Date.now();recData.push(e);}
   persist('rec');closeModal('rec');renderAll();
@@ -625,7 +625,7 @@ function saveOut(){
     encuesta:document.getElementById('o-encuesta').value,
     honorarios:+document.getElementById('o-honorarios').value||0,
   };
-  if(!e.candidato){alert('IngresÃ¡ el nombre del candidato.');return;}
+  if(!e.candidato){alert('Ingresá el nombre del candidato.');return;}
   if(eOutId){const i=outData.findIndex(x=>x.id===eOutId);outData[i]={...outData[i],...e};}
   else{e.id=Date.now();outData.push(e);}
   persist('out');closeModal('out');renderAll();
@@ -633,8 +633,8 @@ function saveOut(){
 
 function editRec(id){openModal('rec',id);}
 function editOut(id){openModal('out',id);}
-function delRec(id){if(!confirm('Â¿Eliminar esta bÃºsqueda?'))return;recData=recData.filter(x=>x.id!==id);persist('rec');renderAll();}
-function delOut(id){if(!confirm('Â¿Eliminar este candidato?'))return;outData=outData.filter(x=>x.id!==id);persist('out');renderAll();}
+function delRec(id){if(!confirm('¿Eliminar esta búsqueda?'))return;recData=recData.filter(x=>x.id!==id);persist('rec');renderAll();}
+function delOut(id){if(!confirm('¿Eliminar este candidato?'))return;outData=outData.filter(x=>x.id!==id);persist('out');renderAll();}
 
 renderAll();
 </script>
