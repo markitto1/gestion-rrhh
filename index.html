@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>if U skill â GestiÃ³n RRHH</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --green:#2ECC71;--green-dark:#25A85C;--green-dim:rgba(46,204,113,.12);
+      --dark:#1a1a1a;--navy:#1e2d4d;--bg:#f0f2f5;--white:#ffffff;
+      --text:#1a2744;--muted:#6b7a99;--border:#e2e8f0;--card-shadow:0 2px 12px rgba(30,45,77,.08);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+    /* HEADER */
+    .app-header{background:var(--dark);color:#fff;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:1px solid rgba(255,255,255,.06)}
+    .brand{display:flex;align-items:center;gap:16px}
+    .brand-logo{font-size:18px;font-weight:800;letter-spacing:-.3px;color:#fff}
+    .brand-logo span{color:var(--green);font-style:italic}
+    .brand-divider{width:1px;height:28px;background:rgba(255,255,255,.15)}
+    .brand-app{font-size:13px;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.3px}
+    .header-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);background:rgba(46,204,113,.12);padding:5px 12px;border-radius:20px;border:1px solid rgba(46,204,113,.25)}
+
+    /* TABS */
+    .tab-nav{background:var(--dark);padding:0 40px;display:flex;border-bottom:1px solid rgba(255,255,255,.06)}
+    .tab-btn{padding:14px 22px;border:none;background:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;display:flex;align-items:center;gap:7px;letter-spacing:.2px}
+    .tab-btn:hover{color:rgba(255,255,255,.75)}
+    .tab-btn.active{color:#fff;border-bottom-color:var(--green)}
+
+    /* LAYOUT */
+    .main{padding:28px 40px;max-width:1500px;margin:0 auto}
+    .tab-panel{display:none}.tab-panel.active{display:block}
+    .section-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+
+    /* ââ FILTER BAR ââ */
+    .filter-bar{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      background:var(--white);border-radius:12px;padding:14px 18px;
+      border:1px solid var(--border);box-shadow:var(--card-shadow);
+      margin-bottom:20px
+    }
+    .filter-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-right:2px}
+    .filter-select{
+      padding:7px 32px 7px 12px;border:1.5px solid var(--border);border-radius:8px;
+      font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);
+      background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7a99'/%3E%3C/svg%3E") no-repeat right 10px center;
+      appearance:none;cursor:pointer;outline:none;transition:border-color .15s
+    }
+    .filter-select:focus{border-color:var(--green)}
+    .filter-select.active-filter{border-color:var(--green);background-color:var(--green-dim);color:var(--green-dark)}
+    .filter-sep{width:1px;height:22px;background:var(--border);margin:0 4px}
+    .filter-clear{
+      display:flex;align-items:center;gap:5px;padding:7px 13px;border:1.5px solid transparent;
+      border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
+      cursor:pointer;background:none;color:var(--muted);transition:all .15s
+    }
+    .filter-clear:hover{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
+    .filter-badge{
+      margin-left:auto;font-size:11px;font-weight:700;color:var(--green);
+      background:var(--green-dim);border:1px solid rgba(46,204,113,.25);
+      border-radius:20px;padding:4px 12px;letter-spacing:.3px
+    }
+
+    /* KPI */
+    .kpi-grid{display:grid;gap:14px;margin-bottom:22px}
+    .kpi-6{grid-template-columns:repeat(6,1fr)}.kpi-5{grid-template-columns:repeat(5,1fr)}
+    .kpi-card{background:var(--white);border-radius:14px;padding:20px;box-shadow:var(--card-shadow);border:1px solid var(--border);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden}
+    .kpi-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green);border-radius:3px 0 0 3px}
+    .kpi-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,45,77,.12)}
+    .kpi-card.dark{background:var(--navy);border-color:transparent;color:#fff}
+    .kpi-card.dark::before{background:var(--green)}
+    .kpi-icon{font-size:20px;margin-bottom:10px;display:block}
+    .kpi-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);margin-bottom:7px}
+    .kpi-card.dark .kpi-label{color:rgba(255,255,255,.5)}
+    .kpi-value{font-size:28px;font-weight:900;line-height:1;color:var(--navy);margin-bottom:4px;letter-spacing:-.5px}
+    .kpi-card.dark .kpi-value{color:var(--green);font-size:20px}
+    .kpi-sub{font-size:11px;color:var(--muted)}
+    .kpi-card.dark .kpi-sub{color:rgba(255,255,255,.4)}
+
+    /* CHARTS */
+    .charts-grid{display:grid;gap:14px;margin-bottom:22px}
+    .charts-3{grid-template-columns:1fr 1fr 1.5fr}.charts-2{grid-template-columns:1fr 1fr}
+    .chart-card{background:var(--white);border-radius:14px;padding:20px;box-shadow:var(--card-shadow);border:1px solid var(--border)}
+    .chart-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:16px}
+    .chart-wrap{position:relative;height:175px}
+
+    /* TABLE */
+    .table-card{background:var(--white);border-radius:14px;box-shadow:var(--card-shadow);border:1px solid var(--border);overflow:hidden}
+    .table-top{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border)}
+    .table-title{font-size:13px;font-weight:700;color:var(--navy)}
+    .add-btn{display:flex;align-items:center;gap:6px;padding:8px 16px;border:none;border-radius:8px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;background:var(--green);color:#fff;cursor:pointer;transition:background .15s,transform .1s;letter-spacing:.2px}
+    .add-btn:hover{background:var(--green-dark);transform:translateY(-1px)}
+    .tbl-scroll{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:12.5px}
+    th{background:#f8f9fb;padding:11px 16px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);white-space:nowrap;border-bottom:1px solid var(--border)}
+    td{padding:12px 16px;border-bottom:1px solid #f5f6f8;color:var(--text)}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#fafbfc}
+
+    /* BADGES */
+    .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap;gap:4px}
+    .b-si{background:#dcfce7;color:#15803d}.b-no{background:#fee2e2;color:#b91c1c}
+    .b-jun{background:#dbeafe;color:#1d4ed8}.b-semi{background:#fef9c3;color:#854d0e}
+    .b-sun{background:var(--green-dim);color:#15803d;border:1px solid rgba(46,204,113,.3)}
+    .b-riesgo{background:#fee2e2;color:#b91c1c}.b-anticipo{background:#dcfce7;color:#15803d}
+    .b-monto{background:var(--green-dim);color:#15803d;font-variant-numeric:tabular-nums;font-weight:800;border:1px solid rgba(46,204,113,.25)}
+
+    /* PROGRESS */
+    .prog{display:flex;align-items:center;gap:8px}
+    .prog-label{font-weight:800;font-size:12px;min-width:28px}
+    .prog-track{flex:1;background:#e9edf2;border-radius:99px;height:6px;min-width:60px}
+    .prog-bar{height:6px;border-radius:99px}
+    .prog-pct{font-size:11px;color:var(--muted);min-width:30px}
+
+    /* ACTION BTNS */
+    .abtn{border:none;background:none;cursor:pointer;padding:4px 8px;border-radius:6px;font-size:13px;line-height:1;transition:background .12s}
+    .abtn-e{color:#3b82f6}.abtn-e:hover{background:#eff6ff}
+    .abtn-d{color:#ef4444}.abtn-d:hover{background:#fef2f2}
+
+    .empty{text-align:center;padding:52px 20px;color:var(--muted)}
+    .empty-icon{font-size:40px;margin-bottom:10px}
+    .empty p{font-size:13px;line-height:1.7}
+
+    /* MODAL */
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+    .overlay.open{display:flex}
+    .modal{background:var(--white);border-radius:18px;width:90%;max-width:660px;max-height:92vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.25)}
+    .modal-h{padding:20px 26px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--dark);border-radius:18px 18px 0 0}
+    .modal-h span{font-size:14px;font-weight:800;color:#fff;letter-spacing:.2px}
+    .modal-x{border:none;background:rgba(255,255,255,.1);font-size:18px;cursor:pointer;color:rgba(255,255,255,.7);width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+    .modal-x:hover{background:rgba(255,255,255,.2);color:#fff}
+    .modal-b{padding:24px 26py}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .fg{display:flex;flex-direction:column;gap:5py}
+    .fg.full{grid-column:1/-1}
+    .fg label{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}
+    .fg input,.fg select{padding:10px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'Inter',sans-serif;font-size:13.5px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;background:#fff}
+    .fg input:focus,.fg select:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-dim)}
+    .ars-wrap{position:relative}
+    .ars-wrap::before{content:'$';position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13.5px;font-weight:600;pointer-events:none}
+    .ars-wrap input{padding-left:26px}
+    .modal-f{padding:16px 26px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:10px}
+    .btn-cancel{padding:10px 20px;border:1.5px solid var(--border);background:#fff;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+    .btn-cancel:hover{background:#f8f9fb}
+    .btn-save{padding:10px 22px;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;background:var(--green);color:#fff;transition:background .15s}
+    .btn-save:hover{background:var(--green-dark)}
+
+    .app-footer{background:var(--dark);color:rgba(255,255,255,.35);text-align:center;padding:16px;font-size:11px;border-top:1px solid rgba(255,255,255,.06);letter-spacing:.3px;margin-top:40px}
+    .app-footer b{color:var(--green)}
+
+    @media(max-width:1200px){.kpi-6{grid-template-columns:repeat(3,1fr)}.kpi-5{grid-template-columns:repeat(3,1fr)}.charts-3{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){.main{padding:16px 20px}.kpi-6,.kpi-5{grid-template-columns:1fr 1fr}.charts-3,.charts-2{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.tab-nav,.app-header{padding-left:20px;padding-right:20px}.filter-bar{gap:8px}}
+  </style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="brand">
+    <div class="brand-logo">if U <span>skill</span></div>
+    <div class="brand-divider"></div>
+    <div class="brand-app">GestiÃ³n de RRHH</div>
+  </div>
+  <div class="header-tag">Dashboard Interno</div>
+</header>
+
+<nav class="tab-nav">
+  <button class="tab-btn active" id="tbtn-rec" onclick="switchTab('rec')">ð Reclutamiento</button>
+  <button class="tab-btn" id="tbtn-out" onclick="switchTab('out')">ð¤ Outplacement</button>
+</nav>
+
+<div class="main">
+
+  <!-- ââ RECLUTAMIENTO ââ -->
+  <div class="tab-panel active" id="panel-rec">
+
+    <div class="section-label">01. Reclutamiento â Filtros</div>
+    <div class="filter-bar">
+      <span class="filter-label">Mes</span>
+      <select class="filter-select" id="f-rec-mes" onchange="applyFilter('rec')">
+        <option value="">Todos los meses</option>
+        <option value="1">Enero</option><option value="2">Febrero</option>
+        <option value="3">Marzo</option><option value="4">Abril</option>
+        <option value="5">Mayo</option><option value="6">Junio</option>
+        <option value="7">Julio</option><option value="8">Agosto</option>
+        <option value="9">Septiembre</option><option value="10">Octubre</option>
+        <option value="11">Noviembre</option><option value="12">Diciembre</option>
+      </select>
+      <span class="filter-label" style="margin-left:6px">AÃ±o</span>
+      <select class="filter-select" id="f-rec-anio" onchange="applyFilter('rec')">
+        <option value="">Todos los aÃ±os</option>
+        <option value="2024">2024</option><option value="2025">2025</option>
+        <option value="2026">2026</option><option value="2027">2027</option>
+        <option value="2028">2028</option>
+      </select>
+      <div class="filter-sep"></div>
+      <button class="filter-clear" onclick="clearFilter('rec')">â Limpiar</button>
+      <div class="filter-badge" id="fbadge-rec">Todos los registros</div>
+    </div>
+
+    <div class="section-label">KPIs</div>
+    <div class="kpi-grid kpi-6" id="kpi-rec"></div>
+
+    <div class="section-label">AnÃ¡lisis visual</div>
+    <div class="charts-grid charts-3">
+      <div class="chart-card"><div class="chart-title">DistribuciÃ³n por Seniority</div><div class="chart-wrap"><canvas id="ch-seniority"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Tipo de Servicio</div><div class="chart-wrap"><canvas id="ch-service"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Honorarios por BÃºsqueda (ARS)</div><div class="chart-wrap"><canvas id="ch-honorarios"></canvas></div></div>
+    </div>
+
+    <div class="section-label">BÃºsquedas activas</div>
+    <div class="table-card">
+      <div class="table-top">
+        <div class="table-title">Procesos en curso</div>
+        <button class="add-btn" onclick="openModal('rec')">+ Nueva bÃºsqueda</button>
+      </div>
+      <div class="tbl-scroll">
+        <table><thead><tr>
+          <th>Empresa</th><th>BÃºsqueda</th><th>Seniority</th><th>Inicio</th><th>DÃ­as</th>
+          <th>Candidatos</th><th>Recruiter</th><th>Sueldo revelado</th>
+          <th>Encuesta</th><th>Servicio</th><th>Honorarios (ARS)</th><th></th>
+        </tr></thead><tbody id="tbody-rec"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ââ OUTPLACEMENT ââ -->
+  <div class="tab-panel" id="panel-out">
+
+    <div class="section-label">02. Outplacement â Filtros</div>
+    <div class="filter-bar">
+      <span class="filter-label">Mes</span>
+      <select class="filter-select" id="f-out-mes" onchange="applyFilter('out')">
+        <option value="">Todos los meses</option>
+        <option value="1">Enero</option><option value="2">Febrero</option>
+        <option value="3">Marzo</option><option value="4">Abril</option>
+        <option value="5">Mayo</option><option value="6">Junio</option>
+        <option value="7">Julio</option><option value="8">Agosto</option>
+        <option value="9">Septiembre</option><option value="10">Octubre</option>
+        <option value="11">Noviembre</option><option value="12">Diciembre</option>
+      </select>
+      <span class="filter-label" style="margin-left:6px">AÃ±o</span>
+      <select class="filter-select" id="f-out-anio" onchange="applyFilter('out')">
+        <option value="">Todos los aÃ±os</option>
+        <option value="2024">2024</option><option value="2025">2025</option>
+        <option value="2026">2026</option><option value="2027">2027</option>
+        <option value="2028">2028</option>
+      </select>
+      <div class="filter-sep"></div>
+      <button class="filter-clear" onclick="clearFilter('out')">â Limpiar</button>
+      <div class="filter-badge" id="fbadge-out">Todos los registros</div>
+    </div>
+
+    <div class="section-label">KPIs</div>
+    <div class="kpi-grid kpi-5" id="kpi-out"></div>
+
+    <div class="section-label">AnÃ¡lisis visual</div>
+    <div class="charts-grid charts-2">
+      <div class="chart-card"><div class="chart-title">DistribuciÃ³n de Reuniones Realizadas</div><div class="chart-wrap"><canvas id="ch-meetings"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Estado de Encuestas</div><div class="chart-wrap"><canvas id="ch-surveys"></canvas></div></div>
+    </div>
+
+    <div class="section-label">Candidatos en proceso</div>
+    <div class="table-card">
+      <div class="table-top">
+        <div class="table-title">Procesos activos</div>
+        <button class="add-btn" onclick="openModal('out')">+ Nuevo candidato</button>
+      </div>
+      <div class="tbl-scroll">
+        <table><thead><tr>
+          <th>Candidato</th><th>Fecha de inicio</th><th>Reuniones</th>
+          <th>Encuesta enviada</th><th>Honorarios (ARS)</th><th></th>
+        </tr></thead><tbody id="tbody-out"></tbody></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="app-footer">
+  <b>if U skill</b> Â· Dashboard de GestiÃ³n RRHH Â· Datos guardados localmente en este navegador
+</footer>
+
+<!-- MODAL RECLUTAMIENTO -->
+<div class="overlay" id="ov-rec" onclick="overlayClick(event,'rec')">
+  <div class="modal">
+    <div class="modal-h"><span id="mtitle-rec">Nueva BÃºsqueda</span><button class="modal-x" onclick="closeModal('rec')">Ã</button></div>
+    <div class="modal-b">
+      <div class="form-grid">
+        <div class="fg"><label>Empresa</label><input id="r-empresa" placeholder="Ej: Acme Corp"/></div>
+        <div class="fg"><label>BÃºsqueda (puesto)</label><input id="r-busqueda" placeholder="Ej: Data Engineer"/></div>
+        <div class="fg"><label>Fecha de inicio</label><input id="r-fecha" type="date"/></div>
+        <div class="fg"><label>Seniority</label>
+          <select id="r-seniority"><option value="">Seleccionar...</option><option>Junior</option><option>Semi Senior</option><option>Senior</option></select></div>
+        <div class="fg"><label>Tiempo de bÃºsqueda (dÃ­as)</label><input id="r-tiempo" type="number" min="0" placeholder="0"/></div>
+        <div class="fg"><label>Candidatos presentados</label><input id="r-candidatos" type="number" min="0" placeholder="0"/></div>
+        <div class="fg"><label>Recruiter asignado</label><input id="r-recruiter" placeholder="Nombre del recruiter"/></div>
+        <div class="fg"><label>Sueldo revelado</label>
+          <select id="r-sueldo"><option value="">Seleccionar...</option><option>SÃ­</option><option>No</option></select></div>
+        <div class="fg"><label>Encuesta enviada</label>
+          <select id="r-encuesta"><option value="">Seleccionar...</option><option>SÃ­</option><option>No</option></select></div>
+        <div class="fg"><label>Tipo de servicio</label>
+          <select id="r-servicio"><option value="">Seleccionar...</option><option>A riesgo</option><option>Con anticipo</option></select></div>
+        <div class="fg"><label>Honorarios estimados (ARS)</label>
+          <div class="ars-wrap"><input id="r-honorarios" type="number" min="0" placeholder="0"/></div></div>
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn-cancel" onclick="closeModal('rec')">Cancelar</button>
+      <button class="btn-save" onclick="saveRec()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OUTPLACEMENT -->
+<div class="overlay" id="ov-out" onclick="overlayClick(event,'out')">
+  <div class="modal">
+    <div class="modal-h"><span id="mtitle-out">Nuevo Candidato</span><button class="modal-x" onclick="closeModal('out')">Ã</button></div>
+    <div class="modal-b">
+      <div class="form-grid">
+        <div class="fg full"><label>Nombre del candidato</label><input id="o-candidato" placeholder="Nombre completo"/></div>
+        <div class="fg"><label>Fecha de inicio</label><input id="o-fecha" type="date"/></div>
+        <div class="fg"><label>Reuniones realizadas</label>
+          <select id="o-reuniones"><option value="">Seleccionar...</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+        <div class="fg"><label>Encuesta enviada</label>
+          <select id="o-encuesta"><option value="">Seleccionar...</option><option>SÃ­</option><option>No</option></select></div>
+        <div class="fg"><label>Honorarios estimados (ARS)</label>
+          <div class="ars-wrap"><input id="o-honorarios" type="number" min="0" placeholder="0"/></div></div>
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn-cancel" onclick="closeModal('out')">Cancelar</button>
+      <button class="btn-save" onclick="saveOut()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ââ DATA ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+let recData=JSON.parse(localStorage.getItem('ifuskill-rec')||'null');
+let outData=JSON.parse(localStorage.getItem('ifuskill-out')||'null');
+
+const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+if(!recData){
+  recData=[
+    {id:1,empresa:'Acme Corp',busqueda:'Desarrollador Full Stack',seniority:'Senior',fecha:'2026-02-10',tiempo:25,candidatos:8,recruiter:'MarÃ­a GarcÃ­a',sueldo:'SÃ­',encuesta:'SÃ­',servicio:'Con anticipo',honorarios:850000},
+    {id:2,empresa:'TechStart',busqueda:'Analista de Datos',seniority:'Semi Senior',fecha:'2026-03-05',tiempo:18,candidatos:5,recruiter:'Juan PÃ©rez',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:600000},
+    {id:3,empresa:'Globex SA',busqueda:'Gerente de Marketing',seniority:'Senior',fecha:'2026-01-20',tiempo:40,candidatos:12,recruiter:'MarÃ­a GarcÃ­a',sueldo:'SÃ­',encuesta:'SÃ­',servicio:'Con anticipo',honorarios:1200000},
+    {id:4,empresa:'Initech',busqueda:'Asistente Administrativo',seniority:'Junior',fecha:'2026-04-01',tiempo:10,candidatos:15,recruiter:'Ana LÃ³pez',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:320000},
+    {id:5,empresa:'Cyberdyne',busqueda:'UX Designer',seniority:'Semi Senior',fecha:'2026-04-08',tiempo:32,candidatos:7,recruiter:'Ana LÃ³pez',sueldo:'SÃ­',encuesta:'SÃ­',servicio:'Con anticipo',honorarios:750000},
+  ];persist('rec');
+}
+if(!outData){
+  outData=[
+    {id:1,candidato:'Carlos RodrÃ­guez',fecha:'2026-03-01',reuniones:'4',encuesta:'SÃ­',honorarios:480000},
+    {id:2,candidato:'LucÃ­a FernÃ¡ndez',fecha:'2026-03-15',reuniones:'3',encuesta:'No',honorarios:480000},
+    {id:3,candidato:'Roberto Silva',fecha:'2026-04-01',reuniones:'2',encuesta:'No',honorarios:480000},
+    {id:4,candidato:'Andrea MartÃ­nez',fecha:'2026-04-05',reuniones:'1',encuesta:'No',honorarios:480000},
+  ];persist('out');
+}
+
+let eRecId=null, eOutId=null;
+const CH={};
+// filter state
+let fRec={mes:'',anio:''};
+let fOut={mes:'',anio:''};
+
+function persist(t){localStorage.setItem('ifuskill-'+t,JSON.stringify(t==='rec'?recData:outData));}
+
+// ââ FILTER LOGIC ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function getFiltered(data, f){
+  if(!f.mes && !f.anio) return data;
+  return data.filter(r=>{
+    if(!r.fecha) return !f.mes && !f.anio;
+    const d=new Date(r.fecha+'T00:00:00');
+    const mOk=!f.mes || (d.getMonth()+1)===+f.mes;
+    const aOk=!f.anio || d.getFullYear()===+f.anio;
+    return mOk && aOk;
+  });
+}
+function filteredRec(){return getFiltered(recData,fRec);}
+function filteredOut(){return getFiltered(outData,fOut);}
+
+function applyFilter(t){
+  if(t==='rec'){
+    fRec.mes=document.getElementById('f-rec-mes').value;
+    fRec.anio=document.getElementById('f-rec-anio').value;
+    document.getElementById('f-rec-mes').classList.toggle('active-filter',!!fRec.mes);
+    document.getElementById('f-rec-anio').classList.toggle('active-filter',!!fRec.anio);
+  } else {
+    fOut.mes=document.getElementById('f-out-mes').value;
+    fOut.anio=document.getElementById('f-out-anio').value;
+    document.getElementById('f-out-mes').classList.toggle('active-filter',!!fOut.mes);
+    document.getElementById('f-out-anio').classList.toggle('active-filter',!!fOut.anio);
+  }
+  renderAll();
+}
+
+function clearFilter(t){
+  if(t==='rec'){
+    fRec={mes:'',anio:''};
+    document.getElementById('f-rec-mes').value='';
+    document.getElementById('f-rec-anio').value='';
+    document.getElementById('f-rec-mes').classList.remove('active-filter');
+    document.getElementById('f-rec-anio').classList.remove('active-filter');
+  } else {
+    fOut={mes:'',anio:''};
+    document.getElementById('f-out-mes').value='';
+    document.getElementById('f-out-anio').value='';
+    document.getElementById('f-out-mes').classList.remove('active-filter');
+    document.getElementById('f-out-anio').classList.remove('active-filter');
+  }
+  renderAll();
+}
+
+function updateBadge(t, total, filtered){
+  const el=document.getElementById('fbadge-'+t);
+  const hasFilter= t==='rec'?(fRec.mes||fRec.anio):(fOut.mes||fOut.anio);
+  if(!hasFilter){el.textContent='Todos los registros ('+total+')';return;}
+  const mesIdx= t==='rec'?+fRec.mes:+fOut.mes;
+  const anio= t==='rec'?fRec.anio:fOut.anio;
+  let parts=[];
+  if(mesIdx) parts.push(MESES[mesIdx-1]);
+  if(anio) parts.push(anio);
+  el.textContent=parts.join(' ')+' Â· '+filtered+' de '+total;
+}
+
+// ââ TABS âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function switchTab(t){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+t).classList.add('active');
+  document.getElementById('tbtn-'+t).classList.add('active');
+  setTimeout(renderAll,30);
+}
+function renderAll(){renderRecKPIs();renderOutKPIs();renderRecTable();renderOutTable();renderCharts();}
+
+// ââ FORMAT âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+const fARS=n=>(!n&&n!==0)?'-':'$ '+Number(n).toLocaleString('es-AR',{minimumFractionDigits:0,maximumFractionDigits:0});
+const fDate=s=>s?new Date(s+'T00:00:00').toLocaleDateString('es-AR'):'-';
+
+// ââ KPIs âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function renderRecKPIs(){
+  const data=filteredRec();
+  updateBadge('rec',recData.length,data.length);
+  const n=data.length;
+  const avg=n?Math.round(data.reduce((a,r)=>a+(+r.tiempo||0),0)/n):0;
+  const cands=data.reduce((a,r)=>a+(+r.candidatos||0),0);
+  const pS=n?Math.round(data.filter(r=>r.sueldo==='SÃ­').length/n*100):0;
+  const pE=n?Math.round(data.filter(r=>r.encuesta==='SÃ­').length/n*100):0;
+  const hon=data.reduce((a,r)=>a+(+r.honorarios||0),0);
+  document.getElementById('kpi-rec').innerHTML=[
+    {i:'ð',l:'Total bÃºsquedas',v:n,s:'procesos filtrados'},
+    {i:'â±',l:'Tiempo promedio',v:avg+'d',s:'dÃ­as por bÃºsqueda'},
+    {i:'ð¥',l:'Candidatos',v:cands,s:'presentados en total'},
+    {i:'ð°',l:'Sueldos revelados',v:pS+'%',s:'de las bÃºsquedas'},
+    {i:'ð',l:'Encuestas enviadas',v:pE+'%',s:'de las bÃºsquedas'},
+    {i:'ðµ',l:'Honorarios totales',v:fARS(hon),s:'estimado acumulado',dark:true},
+  ].map(k=>`<div class="kpi-card${k.dark?' dark':''}"><span class="kpi-icon">${k.i}</span><div class="kpi-label">${k.l}</div><div class="kpi-value">${k.v}</div><div class="kpi-sub">${k.s}</div></div>`).join('');
+}
+
+function renderOutKPIs(){
+  const data=filteredOut();
+  updateBadge('out',outData.length,data.length);
+  const n=data.length;
+  const avgM=n?(data.reduce((a,r)=>a+(+r.reuniones||0),0)/n).toFixed(1):'0';
+  const comp=data.filter(r=>r.reuniones==='4').length;
+  const pC=n?Math.round(comp/n*100):0;
+  const pE=n?Math.round(data.filter(r=>r.encuesta==='SÃ­').length/n*100):0;
+  const hon=data.reduce((a,r)=>a+(+r.honorarios||0),0);
+  document.getElementById('kpi-out').innerHTML=[
+    {i:'ð¤',l:'Total candidatos',v:n,s:'en el perÃ­odo'},
+    {i:'ð¤',l:'Reuniones promedio',v:avgM,s:'de 4 posibles'},
+    {i:'â',l:'Procesos completos',v:pC+'%',s:comp+' de '+n+' candidatos'},
+    {i:'ð',l:'Encuestas enviadas',v:pE+'%',s:'de los candidatos'},
+    {i:'ðµ',l:'Honorarios totales',v:fARS(hon),s:'estimado acumulado',dark:true},
+  ].map(k=>`<div class="kpi-card${k.dark?' dark':''}"><span class="kpi-icon">${k.i}</span><div class="kpi-label">${k.l}</div><div class="kpi-value">${k.v}</div><div class="kpi-sub">${k.s}</div></div>`).join('');
+}
+
+// ââ TABLES âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+const senB=s=>({Junior:'<span class="badge b-jun">Junior</span>','Semi Senior':'<span class="badge b-semi">Semi Senior</span>',Senior:'<span class="badge b-sen">â Senior</span>'}[s]||'-');
+const ynB=v=>v?`<span class="badge ${v==='SÃ­'?'b-si':'b-no'}">${v==='SÃ­'?'â':'â'} ${v}</span>`:'-';
+const svcB=v=>({'A riesgo':'<span class="badge b-riesgo">A riesgo</span>','Con anticipo':'<span class="badge b-anticipo">Con anticipo</span>'}[v]||'-');
+
+function renderRecTable(){
+  const data=filteredRec();
+  const tb=document.getElementById('tbody-rec');
+  if(!data.length){
+    const msg=recData.length?'Sin resultados para el filtro seleccionado.':'HacÃ© clic en <strong>+ Nueva bÃºsqueda</strong> para comenzar.';
+    tb.innerHTML<`<tr><td colspan="12"><div class="empty"><div class="empty-icon">${recData.length?'ð':'ð'}</div><p>${msg}</p></div></td></tr>`;return;
+  }
+  tb.innerHTML=data.map(r=>`<tr>
+    <td><strong>${r.empresa||'-'}</strong></td><td>${r.busqueda||'-'}</td>
+    <td>${senB(r.seniority)}</td>
+    <td style="color:var(--muted);font-size:12px">${fDate(r.fecha)}</td>
+    <td style="text-align:center;font-weight:700;color:var(--navy)">${r.tiempo||'-'}</td>
+    <td style="text-align:center;font-weight:700;color:var(--navy)">${r.candidatos||'-'}</td>
+    <td>${r.recruiter||'-'}</td><td>${ynB(r.sueldo)}</td><td>${ynB(r.encuesta)}</td>
+    <td>${svcB(r.servicio)}</td>
+    <td><span class="badge b-monto">${fARS(r.honorarios)}</span></td>
+    <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editRec(${r.id})">âï¸</button><button class="abtn abtn-d" onclick="delRec(${r.id})">ðï¸</button></td>
+  </tr>`).join('');
+}
+
+function renderOutTable(){
+  const data=filteredOut();
+  const tb=document.getElementById('tbody-out');
+  if(!data.length){
+    const msg=outData.length?'Sin resultados para el filtro seleccionado.':'HacÃ© clic en <strong>+ Nuevo candidato</strong> para comenzar.';
+    tb.innerHTML=`<tr><td colspan="6"><div class="empty"><div class="empty-icon">${outData.length?'ð':'ð¤'}</div><p>${msg}</p></div></td></tr>`;return;
+  }
+  tb.innerHTML=data.map(r=>{
+    const pct=r.reuniones?Math.round(+r.reuniones/4*100):0;
+    const col=pct===100?'#15803d':pct>=75?'#2ECC71':pct>=50?'#f59e0b':'#3b82f6';
+    return `<tr>
+      <td><strong>${r.candidato||'-'}</strong></td>
+      <td style="color:var(--muted);font-size:12px">${fDate(r.fecha)}</td>
+      <td><div class="prog">
+        <span class="prog-label" style="color:${col}">${r.reuniones||'0'}/4</span>
+        <div class="prog-track"><div class="prog-bar" style="width:${pct}%;background:${col}"></div></div>
+        <span class="prog-pct">${pct}%</span>
+      </div></td>
+      <td>${ynB(r.encuesta)}</td>
+      <td><span class="badge b-monto">${fARS(r.honorarios)}</span></td>
+      <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editOut(${r.id})">âï¸</button><button class="abtn abtn-d" onclick="delOut(${r.id})">ðï¸</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ââ CHARTS (uses filtered data) âââââââââââââââââââââââââââââââââââââââââââââââ
+function dc(id){if(CH[id]){CH[id].destroy();delete CH[id];}}
+const GREEN='#2ECC71';
+const DNUT={responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',size:11},padding:10,boxWidth:10,color:'#6b7a99'}}}};
+
+function renderCharts(){
+  const rec=filteredRec(); const out=filteredOut();
+
+  dc('sen');
+  const sc={Junior:0,'Semi Senior':0,Senior:0};
+  rec.forEach(r=>{if(sc[r.seniority]!==undefined)sc[r.seniority]++;});
+  CH['sen']=new Chart(document.getElementById('ch-seniority'),{type:'doughnut',
+    data:{labels:Object.keys(sc),datasets:[{data:Object.values(sc),backgroundColor:['#93c5fd','#fde68a',GREEN],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
+
+  dc('svc');
+  const sv={'A riesgo':0,'Con anticipo':0};
+  rec.forEach(r=>{if(sv[r.servicio]!==undefined)sv[r.servicio]++;});
+  CH['svc']=new Chart(document.getElementById('ch-service'),{type:'doughnut',
+    data:{labels:Object.keys(sv),datasets:[{data:Object.values(sv),backgroundColor:['#fca5a5',GREEN],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
+
+  dc('hon');
+  const top=[...rec].sort((a,b)=>(b.honorarios||0)-(a.honorarios||0)).slice(0,6);
+  CH['hon']=new Chart(document.getElementById('ch-honorarios'),{type:'bar',
+    data:{labels:top.map(r=>r.empresa.length>14?r.empresa.slice(0,14)+'â¦':r.empresa),
+      datasets:[{data:top.map(r=>r.honorarios||0),backgroundColor:GREEN,borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:c=>' $ '+Number(c.raw).toLocaleString('es-AR')}}},
+      scales:{y:{beginAtZero:true,grid:{color:'#f0f2f5'},ticks:{font:{family:'Inter',size:9},callback:v=>'$'+Number(v/1000).toFixed(0)+'k',color:'#6b7a99'}},
+        x:{grid:{display:false},ticks:{font:{family:'Inter',size:9},color:'#6b7a99'}}}}});
+
+  dc('meet');
+  const mc={'1':0,'2':0,'3':0,'4':0};
+  out.forEach(r=>{if(mc[r.reuniones]!==undefined)mc[r.reuniones]++;});
+  CH['meet']=new Chart(document.getElementById('ch-meetings'),{type:'bar',
+    data:{labels:['1 reuniÃ³n','2 reuniones','3 reuniones','4 reuniones'],
+      datasets:[{data:Object.values(mc),backgroundColor:['rgba(46,204,113,.25)','rgba(46,204,113,.5)','rgba(46,204,113,.75)',GREEN],borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{y:{beginAtZero:true,ticks:{stepSize:1,font:{family:'Inter',size:10},color:'#6b7a99'},grid:{color:'#f0f2f5'}},
+        x:{grid:{display:false},ticks:{font:{family:'Inter',size:10},color:'#6b7a99'}}}}});
+
+  dc('surv');
+  const enc={Enviada:out.filter(r=>r.encuesta==='SÃ­').length,Pendiente:out.filter(r=>r.encuesta!=='SÃ­').length};
+  CH['surv']=new Chart(document.getElementById('ch-surveys'),{type:'doughnut',
+    data:{labels:Object.keys(enc),datasets:[{data:Object.values(enc),backgroundColor:[GREEN,'#fca5a5'],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
+}
+
+// ââ MODAL ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function openModal(t,id=null){
+  if(t==='rec'){
+    eRecId=id;
+    document.getElementById('mtitle-rec').textContent=id?'Editar BÃºsqueda':'Nueva BÃºsqueda';
+    const f=['empresa','busqueda','fecha','seniority','tiempo','candidatos','recruiter','sueldo','encuesta','servicio','honorarios'];
+    if(id){const r=recData.find(x=>x.id===id);f.forEach(k=>{document.getElementById('r-'+k).value=r[k]||'';})}
+    else f.forEach(k=>document.getElementById('r-'+k).value='');
+    document.getElementById('ov-rec').classList.add('open');
+  }else{
+    eOutId=id;
+    document.getElementById('mtitle-out').textContent=id?'Editar Candidato':'Nuevo Candidato';
+    const f=['candidato','fecha','reuniones','encuesta','honorarios'];
+    if(id){const r=outData.find(x=>x.id===id);f.forEach(k=>{document.getElementById('o-'+k).value=r[k]||'';})}
+    else f.forEach(k=>document.getElementById('o-'+k).value='');
+    document.getElementById('ov-out').classList.add('open');
+  }
+}
+function closeModal(t){document.getElementById('ov-'+t).classList.remove('open');}
+function overlayClick(e,t){if(e.target===e.currentTarget)closeModal(t);}
+
+// ââ SAVE âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+function saveRec(){
+  const e={
+    empresa:document.getElementById('r-empresa').value.trim(),
+    busqueda:document.getElementById('r-busqueda').value.trim(),
+    fecha:document.getElementById('r-fecha').value,
+    seniority:document.getElementById('r-seniority').value,
+    tiempo:+document.getElementById('r-tiempo').value||0,
+    candidatos:+document.getElementById('r-candidatos').value||0,
+    recruiter:document.getElementById('r-recruiter').value.trim(),
+    sueldo:document.getElementById('r-sueldo').value,
+    encuesta:document.getElementById('r-encuesta').value,
+    servicio:document.getElementById('r-servicio').value,
+    honorarios:+document.getElementById('r-honorarios').value||0,
+  };
+  if(!e.empresa||!e.busqueda){alert('CompletÃ¡ Empresa y BÃºsqueda.');return;}
+  if(eRecId){const i=recData.findIndex(x=>x.id===eRecId);recData[i]={...recData[i],...e};}
+  else{e.id=Date.now();recData.push(e);}
+  persist('rec');closeModal('rec');renderAll();
+}
+function saveOut(){
+  const e={
+    candidato:document.getElementById('o-candidato').value.trim(),
+    fecha:document.getElementById('o-fecha').value,
+    reuniones:document.getElementById('o-reuniones').value,
+    encuesta:document.getElementById('o-encuesta').value,
+    honorarios:+document.getElementById('o-honorarios').value||0,
+  };
+  if(!e.candidato){alert('IngresÃ¡ el nombre del candidato.');return;}
+  if(eOutId){const i=outData.findIndex(x=>x.id===eOutId);outData[i]={...outData[i],...e};}
+  else{e.id=Date.now();outData.push(e);}
+  persist('out');closeModal('out');renderAll();
+}
+
+function editRec(id){openModal('rec',id);}
+function editOut(id){openModal('out',id);}
+function delRec(id){if(!confirm('Â¿Eliminar esta bÃºsqueda?'))return;recData=recData.filter(x=>x.id!==id);persist('rec');renderAll();}
+function delOut(id){if(!confirm('Â¿Eliminar este candidato?'))return;outData=outData.filter(x=>x.id!==id);persist('out');renderAll();}
+
+renderAll();
+</script>
+</body>
+</html>
