@@ -15,6 +15,17 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
+    /* LOADING */
+    #loading-overlay{position:fixed;inset:0;background:rgba(26,26,26,.9);z-index:2000;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;backdrop-filter:blur(6px)}
+    #loading-overlay.hidden{display:none}
+    .spinner{width:44px;height:44px;border:3px solid rgba(46,204,113,.25);border-top-color:#2ECC71;border-radius:50%;animation:spin .75s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-text{color:#fff;font-size:14px;font-weight:600;letter-spacing:.3px}
+    .loading-sub{color:rgba(255,255,255,.45);font-size:12px}
+    .error-msg{color:#fca5a5;font-size:13px;text-align:center;max-width:340px;line-height:1.6;padding:0 20px}
+    .retry-btn{padding:9px 22px;border:none;border-radius:8px;background:var(--green);color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;margin-top:6px}
+    .retry-btn:hover{background:var(--green-dark)}
+
     /* HEADER */
     .app-header{background:var(--dark);color:#fff;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:1px solid rgba(255,255,255,.06)}
     .brand{display:flex;align-items:center;gap:16px}
@@ -22,7 +33,16 @@
     .brand-logo span{color:var(--green);font-style:italic}
     .brand-divider{width:1px;height:28px;background:rgba(255,255,255,.15)}
     .brand-app{font-size:13px;color:rgba(255,255,255,.55);font-weight:500;letter-spacing:.3px}
+    .header-right{display:flex;align-items:center;gap:10px}
     .header-tag{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);background:rgba(46,204,113,.12);padding:5px 12px;border-radius:20px;border:1px solid rgba(46,204,113,.25)}
+    .cloud-badge{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);background:rgba(255,255,255,.07);padding:5px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;gap:5px}
+    .cloud-dot{width:7px;height:7px;border-radius:50%;background:#2ECC71;display:inline-block;animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .io-btn{display:flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;letter-spacing:.2px}
+    .btn-export{background:rgba(46,204,113,.15);color:var(--green);border:1px solid rgba(46,204,113,.35)}
+    .btn-export:hover{background:rgba(46,204,113,.25)}
+    .btn-import{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.15)}
+    .btn-import:hover{background:rgba(255,255,255,.15);color:#fff}
 
     /* TABS */
     .tab-nav{background:var(--dark);padding:0 40px;display:flex;border-bottom:1px solid rgba(255,255,255,.06)}
@@ -31,42 +51,25 @@
     .tab-btn.active{color:#fff;border-bottom-color:var(--green)}
 
     /* LAYOUT */
-    .main{padding:28px 40px;max-width:1500px;margin:0 auto}
+    .main{padding:28px 40px;max-width:1600px;margin:0 auto}
     .tab-panel{display:none}.tab-panel.active{display:block}
     .section-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:14px}
 
-    /* ── FILTER BAR ── */
-    .filter-bar{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-      background:var(--white);border-radius:12px;padding:14px 18px;
-      border:1px solid var(--border);box-shadow:var(--card-shadow);
-      margin-bottom:20px
-    }
+    /* FILTER BAR */
+    .filter-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--white);border-radius:12px;padding:14px 18px;border:1px solid var(--border);box-shadow:var(--card-shadow);margin-bottom:20px}
     .filter-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-right:2px}
-    .filter-select{
-      padding:7px 32px 7px 12px;border:1.5px solid var(--border);border-radius:8px;
-      font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);
-      background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7a99'/%3E%3C/svg%3E") no-repeat right 10px center;
-      appearance:none;cursor:pointer;outline:none;transition:border-color .15s
-    }
+    .filter-select{padding:7px 32px 7px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;color:var(--navy);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7a99'/%3E%3C/svg%3E") no-repeat right 10px center;appearance:none;cursor:pointer;outline:none;transition:border-color .15s}
     .filter-select:focus{border-color:var(--green)}
     .filter-select.active-filter{border-color:var(--green);background-color:var(--green-dim);color:var(--green-dark)}
     .filter-sep{width:1px;height:22px;background:var(--border);margin:0 4px}
-    .filter-clear{
-      display:flex;align-items:center;gap:5px;padding:7px 13px;border:1.5px solid transparent;
-      border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
-      cursor:pointer;background:none;color:var(--muted);transition:all .15s
-    }
+    .filter-clear{display:flex;align-items:center;gap:5px;padding:7px 13px;border:1.5px solid transparent;border-radius:8px;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;cursor:pointer;background:none;color:var(--muted);transition:all .15s}
     .filter-clear:hover{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
-    .filter-badge{
-      margin-left:auto;font-size:11px;font-weight:700;color:var(--green);
-      background:var(--green-dim);border:1px solid rgba(46,204,113,.25);
-      border-radius:20px;padding:4px 12px;letter-spacing:.3px
-    }
+    .filter-badge{margin-left:auto;font-size:11px;font-weight:700;color:var(--green);background:var(--green-dim);border:1px solid rgba(46,204,113,.25);border-radius:20px;padding:4px 12px;letter-spacing:.3px}
 
     /* KPI */
     .kpi-grid{display:grid;gap:14px;margin-bottom:22px}
-    .kpi-6{grid-template-columns:repeat(6,1fr)}.kpi-5{grid-template-columns:repeat(5,1fr)}
+    .kpi-4{grid-template-columns:repeat(4,1fr)}
+    .kpi-5{grid-template-columns:repeat(5,1fr)}
     .kpi-card{background:var(--white);border-radius:14px;padding:20px;box-shadow:var(--card-shadow);border:1px solid var(--border);transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden}
     .kpi-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green);border-radius:3px 0 0 3px}
     .kpi-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(30,45,77,.12)}
@@ -107,6 +110,10 @@
     .b-sen{background:var(--green-dim);color:#15803d;border:1px solid rgba(46,204,113,.3)}
     .b-riesgo{background:#fee2e2;color:#b91c1c}.b-anticipo{background:#dcfce7;color:#15803d}
     .b-monto{background:var(--green-dim);color:#15803d;font-variant-numeric:tabular-nums;font-weight:800;border:1px solid rgba(46,204,113,.25)}
+    .b-abierta{background:#dbeafe;color:#1d4ed8}
+    .b-cancelada{background:#fee2e2;color:#b91c1c}
+    .b-cerrada{background:#dcfce7;color:#15803d}
+    .b-dias{background:#f3f4f6;color:var(--navy);font-variant-numeric:tabular-nums;font-weight:800}
 
     /* PROGRESS */
     .prog{display:flex;align-items:center;gap:8px}
@@ -127,7 +134,7 @@
     /* MODAL */
     .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
     .overlay.open{display:flex}
-    .modal{background:var(--white);border-radius:18px;width:90%;max-width:660px;max-height:92vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.25)}
+    .modal{background:var(--white);border-radius:18px;width:90%;max-width:700px;max-height:92vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,.25)}
     .modal-h{padding:20px 26px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--dark);border-radius:18px 18px 0 0}
     .modal-h span{font-size:14px;font-weight:800;color:#fff;letter-spacing:.2px}
     .modal-x{border:none;background:rgba(255,255,255,.1);font-size:18px;cursor:pointer;color:rgba(255,255,255,.7);width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s}
@@ -147,15 +154,26 @@
     .btn-cancel:hover{background:#f8f9fb}
     .btn-save{padding:10px 22px;border:none;border-radius:10px;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;background:var(--green);color:#fff;transition:background .15s}
     .btn-save:hover{background:var(--green-dark)}
+    .btn-save:disabled{background:#9ca3af;cursor:not-allowed}
+    .dias-hint{font-size:11px;color:var(--muted);margin-top:4px;font-style:italic}
 
     .app-footer{background:var(--dark);color:rgba(255,255,255,.35);text-align:center;padding:16px;font-size:11px;border-top:1px solid rgba(255,255,255,.06);letter-spacing:.3px;margin-top:40px}
     .app-footer b{color:var(--green)}
 
-    @media(max-width:1200px){.kpi-6{grid-template-columns:repeat(3,1fr)}.kpi-5{grid-template-columns:repeat(3,1fr)}.charts-3{grid-template-columns:1fr 1fr}}
-    @media(max-width:768px){.main{padding:16px 20px}.kpi-6,.kpi-5{grid-template-columns:1fr 1fr}.charts-3,.charts-2{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.tab-nav,.app-header{padding-left:20px;padding-right:20px}.filter-bar{gap:8px}}
+    @media(max-width:1200px){.kpi-4{grid-template-columns:repeat(2,1fr)}.kpi-5{grid-template-columns:repeat(3,1fr)}.charts-3{grid-template-columns:1fr 1fr}}
+    @media(max-width:768px){.main{padding:16px 20px}.kpi-4,.kpi-5{grid-template-columns:1fr 1fr}.charts-3,.charts-2{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.tab-nav,.app-header{padding-left:20px;padding-right:20px}.filter-bar{gap:8px}.header-right{gap:6px}.io-btn span{display:none}}
   </style>
 </head>
 <body>
+
+<!-- LOADING OVERLAY -->
+<div id="loading-overlay">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-text">Conectando con la base de datos...</div>
+  <div class="loading-sub" id="loading-sub">Los datos se guardan en la nube ☁️</div>
+  <div class="error-msg" id="loading-error" style="display:none"></div>
+  <button class="retry-btn" id="retry-btn" style="display:none" onclick="loadAll()">ὐ4 Reintentar</button>
+</div>
 
 <header class="app-header">
   <div class="brand">
@@ -163,19 +181,26 @@
     <div class="brand-divider"></div>
     <div class="brand-app">Gestión de RRHH</div>
   </div>
-  <div class="header-tag">Dashboard Interno</div>
+  <div class="header-right">
+    <div class="cloud-badge"><span class="cloud-dot"></span> Datos en la nube</div>
+    <button class="io-btn btn-export" onclick="exportData()" title="Descargar copia de seguridad como archivo JSON">Ὃe <span>Exportar</span></button>
+    <label class="io-btn btn-import" title="Restaurar desde archivo JSON" style="cursor:pointer">
+      Ὄ2 <span>Importar</span>
+      <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)"/>
+    </label>
+    <div class="header-tag">Dashboard Interno</div>
+  </div>
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" id="tbtn-rec" onclick="switchTab('rec')">🔍 Reclutamiento</button>
-  <button class="tab-btn" id="tbtn-out" onclick="switchTab('out')">🤝 Outplacement</button>
+  <button class="tab-btn active" id="tbtn-rec" onclick="switchTab('rec')">ὐd Reclutamiento</button>
+  <button class="tab-btn" id="tbtn-out" onclick="switchTab('out')">ᾑd Outplacement</button>
 </nav>
 
 <div class="main">
 
-  <!-- ══ RECLUTAMIENTO ══ -->
+  <!-- RECLUTAMIENTO -->
   <div class="tab-panel active" id="panel-rec">
-
     <div class="section-label">01. Reclutamiento — Filtros</div>
     <div class="filter-bar">
       <span class="filter-label">Mes</span>
@@ -195,19 +220,26 @@
         <option value="2026">2026</option><option value="2027">2027</option>
         <option value="2028">2028</option>
       </select>
+      <span class="filter-label" style="margin-left:6px">Estado</span>
+      <select class="filter-select" id="f-rec-estado" onchange="applyFilter('rec')">
+        <option value="">Todos</option>
+        <option value="Abierta">Abierta</option>
+        <option value="Cancelada">Cancelada</option>
+        <option value="Cerrada">Cerrada</option>
+      </select>
       <div class="filter-sep"></div>
       <button class="filter-clear" onclick="clearFilter('rec')">✕ Limpiar</button>
       <div class="filter-badge" id="fbadge-rec">Todos los registros</div>
     </div>
 
     <div class="section-label">KPIs</div>
-    <div class="kpi-grid kpi-6" id="kpi-rec"></div>
+    <div class="kpi-grid kpi-4" id="kpi-rec"></div>
 
     <div class="section-label">Análisis visual</div>
     <div class="charts-grid charts-3">
       <div class="chart-card"><div class="chart-title">Distribución por Seniority</div><div class="chart-wrap"><canvas id="ch-seniority"></canvas></div></div>
       <div class="chart-card"><div class="chart-title">Tipo de Servicio</div><div class="chart-wrap"><canvas id="ch-service"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Honorarios por Búsqueda (ARS)</div><div class="chart-wrap"><canvas id="ch-honorarios"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Sueldo Bruto por Búsqueda (ARS)</div><div class="chart-wrap"><canvas id="ch-honorarios"></canvas></div></div>
     </div>
 
     <div class="section-label">Búsquedas activas</div>
@@ -218,17 +250,17 @@
       </div>
       <div class="tbl-scroll">
         <table><thead><tr>
-          <th>Empresa</th><th>Búsqueda</th><th>Seniority</th><th>Inicio</th><th>Días</th>
-          <th>Candidatos</th><th>Recruiter</th><th>Sueldo revelado</th>
-          <th>Encuesta</th><th>Servicio</th><th>Honorarios (ARS)</th><th></th>
+          <th>Empresa</th><th>Búsqueda</th><th>Seniority</th><th>Estado</th>
+          <th>Inicio</th><th>Cierre</th><th>Días</th>
+          <th>Candidatos</th><th>Candidato Seleccionado</th><th>Recruiter</th>
+          <th>Encuesta</th><th>Servicio</th><th>Sueldo Bruto (ARS)</th><th></th>
         </tr></thead><tbody id="tbody-rec"></tbody></table>
       </div>
     </div>
   </div>
 
-  <!-- ══ OUTPLACEMENT ══ -->
+  <!-- OUTPLACEMENT -->
   <div class="tab-panel" id="panel-out">
-
     <div class="section-label">02. Outplacement — Filtros</div>
     <div class="filter-bar">
       <span class="filter-label">Mes</span>
@@ -279,7 +311,7 @@
 </div>
 
 <footer class="app-footer">
-  <b>if U skill</b> · Dashboard de Gestión RRHH · Datos guardados localmente en este navegador
+  <b>if U skill</b> · Dashboard de Gestión RRHH · Los datos se guardan automáticamente en la nube ☁️ — accesibles desde cualquier computadora
 </footer>
 
 <!-- MODAL RECLUTAMIENTO -->
@@ -290,25 +322,26 @@
       <div class="form-grid">
         <div class="fg"><label>Empresa</label><input id="r-empresa" placeholder="Ej: Acme Corp"/></div>
         <div class="fg"><label>Búsqueda (puesto)</label><input id="r-busqueda" placeholder="Ej: Data Engineer"/></div>
-        <div class="fg"><label>Fecha de inicio</label><input id="r-fecha" type="date"/></div>
+        <div class="fg"><label>Fecha de inicio</label><input id="r-fecha" type="date" oninput="updateDiasHint()"/></div>
+        <div class="fg"><label>Fecha de cierre</label><input id="r-fechaCierre" type="date" oninput="updateDiasHint()"/><div class="dias-hint" id="dias-hint">Se calcula automáticamente al completar ambas fechas</div></div>
         <div class="fg"><label>Seniority</label>
           <select id="r-seniority"><option value="">Seleccionar...</option><option>Junior</option><option>Semi Senior</option><option>Senior</option></select></div>
-        <div class="fg"><label>Tiempo de búsqueda (días)</label><input id="r-tiempo" type="number" min="0" placeholder="0"/></div>
+        <div class="fg"><label>Estado</label>
+          <select id="r-estado"><option value="Abierta">Abierta</option><option value="Cancelada">Cancelada</option><option value="Cerrada">Cerrada</option></select></div>
         <div class="fg"><label>Candidatos presentados</label><input id="r-candidatos" type="number" min="0" placeholder="0"/></div>
         <div class="fg"><label>Recruiter asignado</label><input id="r-recruiter" placeholder="Nombre del recruiter"/></div>
-        <div class="fg"><label>Sueldo revelado</label>
-          <select id="r-sueldo"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select></div>
+        <div class="fg full"><label>Candidato seleccionado</label><input id="r-candidatoSel" placeholder="Nombre del candidato elegido (dejar vacío si aún no hay)"/></div>
         <div class="fg"><label>Encuesta enviada</label>
           <select id="r-encuesta"><option value="">Seleccionar...</option><option>Sí</option><option>No</option></select></div>
         <div class="fg"><label>Tipo de servicio</label>
           <select id="r-servicio"><option value="">Seleccionar...</option><option>A riesgo</option><option>Con anticipo</option></select></div>
-        <div class="fg"><label>Honorarios estimados (ARS)</label>
+        <div class="fg full"><label>Sueldo Bruto estimado (ARS)</label>
           <div class="ars-wrap"><input id="r-honorarios" type="number" min="0" placeholder="0"/></div></div>
       </div>
     </div>
     <div class="modal-f">
       <button class="btn-cancel" onclick="closeModal('rec')">Cancelar</button>
-      <button class="btn-save" onclick="saveRec()">Guardar</button>
+      <button class="btn-save" id="btn-save-rec" onclick="saveRec()">Guardar</button>
     </div>
   </div>
 </div>
@@ -331,53 +364,180 @@
     </div>
     <div class="modal-f">
       <button class="btn-cancel" onclick="closeModal('out')">Cancelar</button>
-      <button class="btn-save" onclick="saveOut()">Guardar</button>
+      <button class="btn-save" id="btn-save-out" onclick="saveOut()">Guardar</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────────────
-let recData=JSON.parse(localStorage.getItem('ifuskill-rec')||'null');
-let outData=JSON.parse(localStorage.getItem('ifuskill-out')||'null');
+// ── SUPABASE CONFIG ───────────────────────────────────────────────────────────
+const SUPA_URL='https://cdeudwrjqulcgrzsdyay.supabase.co';
+const SUPA_KEY='\u0065\u0079\u004a\u0068\u0062\u0047\u0063\u0069\u004f\u0069\u004a\u0049\u0055\u007a\u0049\u0031\u004e\u0069\u0049\u0073\u0049\u006e\u0052\u0035\u0063\u0043\u0049\u0036\u0049\u006b\u0070\u0058\u0056\u0043\u004a\u0039\u002e\u0065\u0079\u004a\u0070\u0063\u0033\u004d\u0069\u004f\u0069\u004a\u007a\u0064\u0058\u0042\u0068\u0059\u006d\u0046\u007a\u005a\u0053\u0049\u0073\u0049\u006e\u004a\u006c\u005a\u0069\u0049\u0036\u0049\u006d\u004e\u006b\u005a\u0058\u0056\u006b\u0064\u0033\u004a\u0071\u0063\u0058\u0056\u0073\u0059\u0032\u0064\u0079\u005a\u006e\u004e\u006b\u0065\u0057\u0046\u0035\u0049\u0069\u0077\u0069\u0063\u006d\u0039\u0073\u005a\u0053\u0049\u0036\u0049\u006d\u0046\u0075\u0062\u0032\u0034\u0069\u004c\u0043\u004a\u0070\u0059\u0058\u0051\u0069\u004f\u006a\u0045\u0033\u004e\u007a\u0059\u0078\u004d\u006a\u004d\u0032\u004f\u0054\u0055\u0073\u0049\u006d\u0056\u0034\u0063\u0043\u0049\u0036\u004d\u006a\u0041\u0035\u004d\u0054\u0059\u0035\u004f\u0054\u0059\u0035\u004e\u0058\u0030\u002e\u0077\u0052\u0035\u0043\u0042\u0041\u004b\u0079\u0053\u0053\u0044\u0071\u0076\u0055\u0042\u006a\u0035\u0062\u0055\u0047\u004d\u0052\u006c\u0064\u0059\u0075\u0061\u006a\u0052\u0063\u0076\u0071\u0067\u0076\u0056\u0041\u0032\u004a\u004e\u0052\u0031\u006f\u004d';
+const SUPA_H={
+  'apikey':SUPA_KEY,
+  'Authorization':'Bearer '+SUPA_KEY,
+  'Content-Type':'application/json',
+  'Prefer':'return=representation'
+};
 
+// ── DATA ─────────────────────────────────────────────────────────────────────
+let recData=[];
+let outData=[];
 const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
-if(!recData){
-  recData=[
-    {id:1,empresa:'Acme Corp',busqueda:'Desarrollador Full Stack',seniority:'Senior',fecha:'2026-02-10',tiempo:25,candidatos:8,recruiter:'María García',sueldo:'Sí',encuesta:'Sí',servicio:'Con anticipo',honorarios:850000},
-    {id:2,empresa:'TechStart',busqueda:'Analista de Datos',seniority:'Semi Senior',fecha:'2026-03-05',tiempo:18,candidatos:5,recruiter:'Juan Pérez',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:600000},
-    {id:3,empresa:'Globex SA',busqueda:'Gerente de Marketing',seniority:'Senior',fecha:'2026-01-20',tiempo:40,candidatos:12,recruiter:'María García',sueldo:'Sí',encuesta:'Sí',servicio:'Con anticipo',honorarios:1200000},
-    {id:4,empresa:'Initech',busqueda:'Asistente Administrativo',seniority:'Junior',fecha:'2026-04-01',tiempo:10,candidatos:15,recruiter:'Ana López',sueldo:'No',encuesta:'No',servicio:'A riesgo',honorarios:320000},
-    {id:5,empresa:'Cyberdyne',busqueda:'UX Designer',seniority:'Semi Senior',fecha:'2026-04-08',tiempo:32,candidatos:7,recruiter:'Ana López',sueldo:'Sí',encuesta:'Sí',servicio:'Con anticipo',honorarios:750000},
-  ];persist('rec');
-}
-if(!outData){
-  outData=[
-    {id:1,candidato:'Carlos Rodríguez',fecha:'2026-03-01',reuniones:'4',encuesta:'Sí',honorarios:480000},
-    {id:2,candidato:'Lucía Fernández',fecha:'2026-03-15',reuniones:'3',encuesta:'No',honorarios:480000},
-    {id:3,candidato:'Roberto Silva',fecha:'2026-04-01',reuniones:'2',encuesta:'No',honorarios:480000},
-    {id:4,candidato:'Andrea Martínez',fecha:'2026-04-05',reuniones:'1',encuesta:'No',honorarios:480000},
-  ];persist('out');
-}
-
 let eRecId=null, eOutId=null;
 const CH={};
-// filter state
-let fRec={mes:'',anio:''};
+let fRec={mes:'',anio:'',estado:''};
 let fOut={mes:'',anio:''};
 
-function persist(t){localStorage.setItem('ifuskill-'+t,JSON.stringify(t==='rec'?recData:outData));}
+// ── FIELD MAPPING ─────────────────────────────────────────────────────────────
+function dbToRec(r){
+  return {id:r.id,empresa:r.empresa||'',busqueda:r.busqueda||'',seniority:r.seniority||'',fecha:r.fecha||'',fechaCierre:r.fecha_cierre||'',candidatos:r.candidatos||0,recruiter:r.recruiter||'',candidatoSel:r.candidato_sel||'',encuesta:r.encuesta||'',servicio:r.servicio||'',honorarios:r.honorarios||0,estado:r.estado||'Abierta'};
+}
+function recToDb(r){
+  return {empresa:r.empresa,busqueda:r.busqueda,seniority:r.seniority||null,fecha:r.fecha||null,fecha_cierre:r.fechaCierre||null,candidatos:r.candidatos||0,recruiter:r.recruiter||null,candidato_sel:r.candidatoSel||null,encuesta:r.encuesta||null,servicio:r.servicio||null,honorarios:r.honorarios||0,estado:r.estado||'Abierta'};
+}
+function dbToOut(r){
+  return {id:r.id,candidato:r.candidato||'',fecha:r.fecha||'',reuniones:r.reuniones||'',encuesta:r.encuesta||'',honorarios:r.honorarios||0};
+}
+function outToDb(r){
+  return {candidato:r.candidato,fecha:r.fecha||null,reuniones:r.reuniones||null,encuesta:r.encuesta||null,honorarios:r.honorarios||0};
+}
 
-// ── FILTER LOGIC ──────────────────────────────────────────────────────────────
-function getFiltered(data, f){
-  if(!f.mes && !f.anio) return data;
+// ── SUPABASE HELPERS ─────────────────────────────────────────────────────────
+async function sbGet(table){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}?order=id.asc`,{headers:SUPA_H});
+  if(!res.ok) throw new Error(`Error al cargar ${table}: ${res.status}`);
+  return res.json();
+}
+async function sbInsert(table,body){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}`,{method:'POST',headers:SUPA_H,body:JSON.stringify(body)});
+  if(!res.ok) throw new Error(`Error al guardar en ${table}`);
+  const data=await res.json();
+  return Array.isArray(data)?data[0]:data;
+}
+async function sbUpdate(table,id,body){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${id}`,{method:'PATCH',headers:SUPA_H,body:JSON.stringify(body)});
+  if(!res.ok) throw new Error(`Error al actualizar en ${table}`);
+  const data=await res.json();
+  return Array.isArray(data)?data[0]:data;
+}
+async function sbDelete(table,id){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${id}`,{method:'DELETE',headers:{...SUPA_H,'Prefer':''}});
+  if(!res.ok) throw new Error(`Error al eliminar de ${table}`);
+}
+async function sbDeleteAll(table){
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}?id=gt.0`,{method:'DELETE',headers:{...SUPA_H,'Prefer':''}});
+  if(!res.ok) throw new Error(`Error al limpiar ${table}`);
+}
+async function sbBulkInsert(table,rows){
+  if(!rows.length) return [];
+  const res=await fetch(`${SUPA_URL}/rest/v1/${table}`,{method:'POST',headers:SUPA_H,body:JSON.stringify(rows)});
+  if(!res.ok) throw new Error(`Error al importar en ${table}`);
+  return res.json();
+}
+
+// ── LOADING UI ────────────────────────────────────────────────────────────────
+function showLoading(show,msg='Cargando datos...'){
+  const ov=document.getElementById('loading-overlay');
+  const txt=document.getElementById('loading-text');
+  const err=document.getElementById('loading-error');
+  const retry=document.getElementById('retry-btn');
+  const sub=document.getElementById('loading-sub');
+  if(show){
+    ov.classList.remove('hidden');
+    txt.textContent=msg;
+    err.style.display='none';
+    retry.style.display='none';
+    sub.style.display='block';
+  } else {
+    ov.classList.add('hidden');
+  }
+}
+function showLoadError(msg){
+  const ov=document.getElementById('loading-overlay');
+  const txt=document.getElementById('loading-text');
+  const err=document.getElementById('loading-error');
+  const retry=document.getElementById('retry-btn');
+  const sub=document.getElementById('loading-sub');
+  ov.classList.remove('hidden');
+  txt.textContent='No se pudieron cargar los datos';
+  err.style.display='block';
+  err.textContent=msg+'\n\nVerificá tu conexión a internet e intentá de nuevo.';
+  retry.style.display='block';
+  sub.style.display='none';
+}
+
+// ── INITIAL LOAD ─────────────────────────────────────────────────────────────
+async function loadAll(){
+  showLoading(true,'Conectando con la base de datos...');
+  try{
+    const [recs,outs]=await Promise.all([sbGet('busquedas'),sbGet('outplacement')]);
+    recData=recs.map(dbToRec);
+    outData=outs.map(dbToOut);
+
+    // Sembrar datos de muestra si las tablas están vacías
+    if(recData.length===0){
+      showLoading(true,'Cargando datos de ejemplo...');
+      const seeds=[
+        {empresa:'Acme Corp',busqueda:'Desarrollador Full Stack',seniority:'Senior',fecha:'2026-02-10',fechaCierre:'2026-03-07',candidatos:8,recruiter:'María García',candidatoSel:'Pablo Gómez',encuesta:'Sí',servicio:'Con anticipo',honorarios:850000,estado:'Cerrada'},
+        {empresa:'TechStart',busqueda:'Analista de Datos',seniority:'Semi Senior',fecha:'2026-03-05',fechaCierre:'',candidatos:5,recruiter:'Juan Pérez',candidatoSel:'',encuesta:'No',servicio:'A riesgo',honorarios:600000,estado:'Abierta'},
+        {empresa:'Globex SA',busqueda:'Gerente de Marketing',seniority:'Senior',fecha:'2026-01-20',fechaCierre:'2026-03-01',candidatos:12,recruiter:'María García',candidatoSel:'Laura Vega',encuesta:'Sí',servicio:'Con anticipo',honorarios:1200000,estado:'Cerrada'},
+        {empresa:'Initech',busqueda:'Asistente Administrativo',seniority:'Junior',fecha:'2026-04-01',fechaCierre:'',candidatos:15,recruiter:'Ana López',candidatoSel:'',encuesta:'No',servicio:'A riesgo',honorarios:320000,estado:'Abierta'},
+        {empresa:'Cyberdyne',busqueda:'UX Designer',seniority:'Semi Senior',fecha:'2026-04-08',fechaCierre:'',candidatos:7,recruiter:'Ana López',candidatoSel:'',encuesta:'Sí',servicio:'Con anticipo',honorarios:750000,estado:'Cancelada'},
+      ];
+      const saved=await sbBulkInsert('busquedas',seeds.map(recToDb));
+      recData=saved.map(dbToRec);
+    }
+    if(outData.length===0){
+      const seeds=[
+        {candidato:'Carlos Rodríguez',fecha:'2026-03-01',reuniones:'4',encuesta:'Sí',honorarios:480000},
+        {candidato:'Lucía Fernández',fecha:'2026-03-15',reuniones:'3',encuesta:'No',honorarios:480000},
+        {candidato:'Roberto Silva',fecha:'2026-04-01',reuniones:'2',encuesta:'No',honorarios:480000},
+        {candidato:'Andrea Martínez',fecha:'2026-04-05',reuniones:'1',encuesta:'No',honorarios:480000},
+      ];
+      const saved=await sbBulkInsert('outplacement',seeds.map(outToDb));
+      outData=saved.map(dbToOut);
+    }
+
+    showLoading(false);
+    renderAll();
+  }catch(err){
+    showLoadError(err.message);
+  }
+}
+
+// ── CALCULAR DÍAS ─────────────────────────────────────────────────────────────
+function calcDias(r){
+  if(!r.fecha) return null;
+  const start=new Date(r.fecha+'T00:00:00');
+  if(r.fechaCierre){
+    return Math.max(0,Math.round((new Date(r.fechaCierre+'T00:00:00')-start)/86400000));
+  }
+  return Math.max(0,Math.round((new Date()-start)/86400000));
+}
+
+function updateDiasHint(){
+  const fi=document.getElementById('r-fecha').value;
+  const fc=document.getElementById('r-fechaCierre').value;
+  const hint=document.getElementById('dias-hint');
+  if(fi&&fc){
+    const d=Math.max(0,Math.round((new Date(fc+'T00:00:00')-new Date(fi+'T00:00:00'))/86400000));
+    hint.textContent='→ Duración calculada: '+d+' días';
+    hint.style.color='var(--green-dark)';hint.style.fontWeight='700';
+  }else{
+    hint.textContent='Se calcula automáticamente al completar ambas fechas';
+    hint.style.color='var(--muted)';hint.style.fontWeight='normal';
+  }
+}
+
+// ── FILTER ───────────────────────────────────────────────────────────────────
+function getFiltered(data,f){
   return data.filter(r=>{
-    if(!r.fecha) return !f.mes && !f.anio;
-    const d=new Date(r.fecha+'T00:00:00');
-    const mOk=!f.mes || (d.getMonth()+1)===+f.mes;
-    const aOk=!f.anio || d.getFullYear()===+f.anio;
-    return mOk && aOk;
+    const d=r.fecha?new Date(r.fecha+'T00:00:00'):null;
+    const mOk=!f.mes||!d||(d.getMonth()+1)===+f.mes;
+    const aOk=!f.anio||!d||d.getFullYear()===+f.anio;
+    const eOk=!f.estado||r.estado===f.estado;
+    return mOk&&aOk&&(eOk||f.estado===undefined);
   });
 }
 function filteredRec(){return getFiltered(recData,fRec);}
@@ -387,44 +547,44 @@ function applyFilter(t){
   if(t==='rec'){
     fRec.mes=document.getElementById('f-rec-mes').value;
     fRec.anio=document.getElementById('f-rec-anio').value;
-    document.getElementById('f-rec-mes').classList.toggle('active-filter',!!fRec.mes);
-    document.getElementById('f-rec-anio').classList.toggle('active-filter',!!fRec.anio);
-  } else {
+    fRec.estado=document.getElementById('f-rec-estado').value;
+    ['f-rec-mes','f-rec-anio','f-rec-estado'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.classList.toggle('active-filter',!!el.value);
+    });
+  }else{
     fOut.mes=document.getElementById('f-out-mes').value;
     fOut.anio=document.getElementById('f-out-anio').value;
-    document.getElementById('f-out-mes').classList.toggle('active-filter',!!fOut.mes);
-    document.getElementById('f-out-anio').classList.toggle('active-filter',!!fOut.anio);
+    ['f-out-mes','f-out-anio'].forEach(id=>{
+      const el=document.getElementById(id);
+      el.classList.toggle('active-filter',!!el.value);
+    });
   }
   renderAll();
 }
 
 function clearFilter(t){
   if(t==='rec'){
-    fRec={mes:'',anio:''};
-    document.getElementById('f-rec-mes').value='';
-    document.getElementById('f-rec-anio').value='';
-    document.getElementById('f-rec-mes').classList.remove('active-filter');
-    document.getElementById('f-rec-anio').classList.remove('active-filter');
-  } else {
+    fRec={mes:'',anio:'',estado:''};
+    ['f-rec-mes','f-rec-anio','f-rec-estado'].forEach(id=>{document.getElementById(id).value='';document.getElementById(id).classList.remove('active-filter');});
+  }else{
     fOut={mes:'',anio:''};
-    document.getElementById('f-out-mes').value='';
-    document.getElementById('f-out-anio').value='';
-    document.getElementById('f-out-mes').classList.remove('active-filter');
-    document.getElementById('f-out-anio').classList.remove('active-filter');
+    ['f-out-mes','f-out-anio'].forEach(id=>{document.getElementById(id).value='';document.getElementById(id).classList.remove('active-filter');});
   }
   renderAll();
 }
 
-function updateBadge(t, total, filtered){
+function updateBadge(t,total,filtered){
   const el=document.getElementById('fbadge-'+t);
-  const hasFilter= t==='rec'?(fRec.mes||fRec.anio):(fOut.mes||fOut.anio);
+  const hasFilter=t==='rec'?(fRec.mes||fRec.anio||fRec.estado):(fOut.mes||fOut.anio);
   if(!hasFilter){el.textContent='Todos los registros ('+total+')';return;}
-  const mesIdx= t==='rec'?+fRec.mes:+fOut.mes;
-  const anio= t==='rec'?fRec.anio:fOut.anio;
+  const mesIdx=t==='rec'?+fRec.mes:+fOut.mes;
+  const anio=t==='rec'?fRec.anio:fOut.anio;
   let parts=[];
   if(mesIdx) parts.push(MESES[mesIdx-1]);
   if(anio) parts.push(anio);
-  el.textContent=parts.join(' ')+' · '+filtered+' de '+total;
+  if(t==='rec'&&fRec.estado) parts.push(fRec.estado);
+  el.textContent=parts.join(' · ')+' · '+filtered+' de '+total;
 }
 
 // ── TABS ─────────────────────────────────────────────────────────────────────
@@ -446,18 +606,25 @@ function renderRecKPIs(){
   const data=filteredRec();
   updateBadge('rec',recData.length,data.length);
   const n=data.length;
-  const avg=n?Math.round(data.reduce((a,r)=>a+(+r.tiempo||0),0)/n):0;
-  const cands=data.reduce((a,r)=>a+(+r.candidatos||0),0);
-  const pS=n?Math.round(data.filter(r=>r.sueldo==='Sí').length/n*100):0;
+  const avgDias=n?Math.round(data.reduce((a,r)=>a+(calcDias(r)||0),0)/n):0;
+  const cerradas=data.filter(r=>r.estado==='Cerrada');
+  const avgDiasCerradas=cerradas.length?Math.round(cerradas.reduce((a,r)=>a+(calcDias(r)||0),0)/cerradas.length):0;
+  const totalCands=data.reduce((a,r)=>a+(+r.candidatos||0),0);
+  const avgCands=n?(totalCands/n).toFixed(1):'0';
   const pE=n?Math.round(data.filter(r=>r.encuesta==='Sí').length/n*100):0;
   const hon=data.reduce((a,r)=>a+(+r.honorarios||0),0);
+  const nAbierta=data.filter(r=>r.estado==='Abierta').length;
+  const nCerrada=cerradas.length;
+  const nCancelada=data.filter(r=>r.estado==='Cancelada').length;
   document.getElementById('kpi-rec').innerHTML=[
-    {i:'🔍',l:'Total búsquedas',v:n,s:'procesos filtrados'},
-    {i:'⏱',l:'Tiempo promedio',v:avg+'d',s:'días por búsqueda'},
-    {i:'👥',l:'Candidatos',v:cands,s:'presentados en total'},
-    {i:'💰',l:'Sueldos revelados',v:pS+'%',s:'de las búsquedas'},
+    {i:'🔍',l:'Total búsquedas',v:n,s:`${nAbierta} abiertas · ${nCerrada} cerradas · ${nCancelada} canceladas`},
+    {i:'⏱',l:'Prom. días (todas)',v:avgDias+'d',s:'días promedio por búsqueda'},
+    {i:'✅',l:'Prom. días cerradas',v:avgDiasCerradas>0?avgDiasCerradas+'d':'—',s:cerradas.length+' búsquedas cerradas'},
+    {i:'👥',l:'Prom. candidatos',v:avgCands,s:'por búsqueda · '+totalCands+' en total'},
     {i:'📋',l:'Encuestas enviadas',v:pE+'%',s:'de las búsquedas'},
-    {i:'💵',l:'Honorarios totales',v:fARS(hon),s:'estimado acumulado',dark:true},
+    {i:'👤',l:'Con candidato sel.',v:data.filter(r=>r.candidatoSel).length,s:'búsquedas con seleccionado'},
+    {i:'📊',l:'Tasa de cierre',v:n?Math.round(nCerrada/n*100)+'%':'—',s:'búsquedas cerradas / total'},
+    {i:'💵',l:'Sueldo Bruto total',v:fARS(hon),s:'estimado acumulado',dark:true},
   ].map(k=>`<div class="kpi-card${k.dark?' dark':''}"><span class="kpi-icon">${k.i}</span><div class="kpi-label">${k.l}</div><div class="kpi-value">${k.v}</div><div class="kpi-sub">${k.s}</div></div>`).join('');
 }
 
@@ -483,25 +650,35 @@ function renderOutKPIs(){
 const senB=s=>({Junior:'<span class="badge b-jun">Junior</span>','Semi Senior':'<span class="badge b-semi">Semi Senior</span>',Senior:'<span class="badge b-sen">● Senior</span>'}[s]||'-');
 const ynB=v=>v?`<span class="badge ${v==='Sí'?'b-si':'b-no'}">${v==='Sí'?'✓':'✗'} ${v}</span>`:'-';
 const svcB=v=>({'A riesgo':'<span class="badge b-riesgo">A riesgo</span>','Con anticipo':'<span class="badge b-anticipo">Con anticipo</span>'}[v]||'-');
+const estadoB=v=>({'Abierta':'<span class="badge b-abierta">● Abierta</span>','Cancelada':'<span class="badge b-cancelada">✗ Cancelada</span>','Cerrada':'<span class="badge b-cerrada">✓ Cerrada</span>'}[v]||'<span class="badge b-abierta">● Abierta</span>');
 
 function renderRecTable(){
   const data=filteredRec();
   const tb=document.getElementById('tbody-rec');
   if(!data.length){
     const msg=recData.length?'Sin resultados para el filtro seleccionado.':'Hacé clic en <strong>+ Nueva búsqueda</strong> para comenzar.';
-    tb.innerHTML=`<tr><td colspan="12"><div class="empty"><div class="empty-icon">${recData.length?'🔎':'🔍'}</div><p>${msg}</p></div></td></tr>`;return;
+    tb.innerHTML=`<tr><td colspan="14"><div class="empty"><div class="empty-icon">${recData.length?'🔎':'🔍'}</div><p>${msg}</p></div></td></tr>`;return;
   }
-  tb.innerHTML=data.map(r=>`<tr>
-    <td><strong>${r.empresa||'-'}</strong></td><td>${r.busqueda||'-'}</td>
+  tb.innerHTML=data.map(r=>{
+    const dias=calcDias(r);
+    const diasStr=dias!==null?`<span class="badge b-dias">${dias}d</span>`:'-';
+    return `<tr>
+    <td><strong>${r.empresa||'-'}</strong></td>
+    <td>${r.busqueda||'-'}</td>
     <td>${senB(r.seniority)}</td>
+    <td>${estadoB(r.estado)}</td>
     <td style="color:var(--muted);font-size:12px">${fDate(r.fecha)}</td>
-    <td style="text-align:center;font-weight:700;color:var(--navy)">${r.tiempo||'-'}</td>
+    <td style="color:var(--muted);font-size:12px">${fDate(r.fechaCierre)}</td>
+    <td style="text-align:center">${diasStr}</td>
     <td style="text-align:center;font-weight:700;color:var(--navy)">${r.candidatos||'-'}</td>
-    <td>${r.recruiter||'-'}</td><td>${ynB(r.sueldo)}</td><td>${ynB(r.encuesta)}</td>
+    <td style="font-size:12px">${r.candidatoSel||'<span style="color:var(--muted)">—</span>'}</td>
+    <td>${r.recruiter||'-'}</td>
+    <td>${ynB(r.encuesta)}</td>
     <td>${svcB(r.servicio)}</td>
     <td><span class="badge b-monto">${fARS(r.honorarios)}</span></td>
     <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editRec(${r.id})">✏️</button><button class="abtn abtn-d" onclick="delRec(${r.id})">🗑️</button></td>
-  </tr>`).join('');
+  </tr>`;
+  }).join('');
 }
 
 function renderOutTable(){
@@ -517,11 +694,7 @@ function renderOutTable(){
     return `<tr>
       <td><strong>${r.candidato||'-'}</strong></td>
       <td style="color:var(--muted);font-size:12px">${fDate(r.fecha)}</td>
-      <td><div class="prog">
-        <span class="prog-label" style="color:${col}">${r.reuniones||'0'}/4</span>
-        <div class="prog-track"><div class="prog-bar" style="width:${pct}%;background:${col}"></div></div>
-        <span class="prog-pct">${pct}%</span>
-      </div></td>
+      <td><div class="prog"><span class="prog-label" style="color:${col}">${r.reuniones||'0'}/4</span><div class="prog-track"><div class="prog-bar" style="width:${pct}%;background:${col}"></div></div><span class="prog-pct">${pct}%</span></div></td>
       <td>${ynB(r.encuesta)}</td>
       <td><span class="badge b-monto">${fARS(r.honorarios)}</span></td>
       <td style="white-space:nowrap"><button class="abtn abtn-e" onclick="editOut(${r.id})">✏️</button><button class="abtn abtn-d" onclick="delOut(${r.id})">🗑️</button></td>
@@ -529,51 +702,35 @@ function renderOutTable(){
   }).join('');
 }
 
-// ── CHARTS (uses filtered data) ───────────────────────────────────────────────
+// ── CHARTS ───────────────────────────────────────────────────────────────────
 function dc(id){if(CH[id]){CH[id].destroy();delete CH[id];}}
 const GREEN='#2ECC71';
-const DNUT={responsive:true,maintainAspectRatio:false,
-  plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',size:11},padding:10,boxWidth:10,color:'#6b7a99'}}}};
+const DNUT={responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',size:11},padding:10,boxWidth:10,color:'#6b7a99'}}}};
 
 function renderCharts(){
-  const rec=filteredRec(); const out=filteredOut();
-
+  const rec=filteredRec();const out=filteredOut();
   dc('sen');
   const sc={Junior:0,'Semi Senior':0,Senior:0};
   rec.forEach(r=>{if(sc[r.seniority]!==undefined)sc[r.seniority]++;});
-  CH['sen']=new Chart(document.getElementById('ch-seniority'),{type:'doughnut',
-    data:{labels:Object.keys(sc),datasets:[{data:Object.values(sc),backgroundColor:['#93c5fd','#fde68a',GREEN],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
+  CH['sen']=new Chart(document.getElementById('ch-seniority'),{type:'doughnut',data:{labels:Object.keys(sc),datasets:[{data:Object.values(sc),backgroundColor:['#93c5fd','#fde68a',GREEN],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
 
   dc('svc');
   const sv={'A riesgo':0,'Con anticipo':0};
   rec.forEach(r=>{if(sv[r.servicio]!==undefined)sv[r.servicio]++;});
-  CH['svc']=new Chart(document.getElementById('ch-service'),{type:'doughnut',
-    data:{labels:Object.keys(sv),datasets:[{data:Object.values(sv),backgroundColor:['#fca5a5',GREEN],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
+  CH['svc']=new Chart(document.getElementById('ch-service'),{type:'doughnut',data:{labels:Object.keys(sv),datasets:[{data:Object.values(sv),backgroundColor:['#fca5a5',GREEN],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
 
   dc('hon');
   const top=[...rec].sort((a,b)=>(b.honorarios||0)-(a.honorarios||0)).slice(0,6);
-  CH['hon']=new Chart(document.getElementById('ch-honorarios'),{type:'bar',
-    data:{labels:top.map(r=>r.empresa.length>14?r.empresa.slice(0,14)+'…':r.empresa),
-      datasets:[{data:top.map(r=>r.honorarios||0),backgroundColor:GREEN,borderRadius:6,borderSkipped:false}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
-      tooltip:{callbacks:{label:c=>' $ '+Number(c.raw).toLocaleString('es-AR')}}},
-      scales:{y:{beginAtZero:true,grid:{color:'#f0f2f5'},ticks:{font:{family:'Inter',size:9},callback:v=>'$'+Number(v/1000).toFixed(0)+'k',color:'#6b7a99'}},
-        x:{grid:{display:false},ticks:{font:{family:'Inter',size:9},color:'#6b7a99'}}}}});
+  CH['hon']=new Chart(document.getElementById('ch-honorarios'),{type:'bar',data:{labels:top.map(r=>r.empresa.length>14?r.empresa.slice(0,14)+'…':r.empresa),datasets:[{data:top.map(r=>r.honorarios||0),backgroundColor:GREEN,borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' $ '+Number(c.raw).toLocaleString('es-AR')}}},scales:{y:{beginAtZero:true,grid:{color:'#f0f2f5'},ticks:{font:{family:'Inter',size:9},callback:v=>'$'+Number(v/1000).toFixed(0)+'k',color:'#6b7a99'}},x:{grid:{display:false},ticks:{font:{family:'Inter',size:9},color:'#6b7a99'}}}}});
 
   dc('meet');
   const mc={'1':0,'2':0,'3':0,'4':0};
   out.forEach(r=>{if(mc[r.reuniones]!==undefined)mc[r.reuniones]++;});
-  CH['meet']=new Chart(document.getElementById('ch-meetings'),{type:'bar',
-    data:{labels:['1 reunión','2 reuniones','3 reuniones','4 reuniones'],
-      datasets:[{data:Object.values(mc),backgroundColor:['rgba(46,204,113,.25)','rgba(46,204,113,.5)','rgba(46,204,113,.75)',GREEN],borderRadius:6,borderSkipped:false}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-      scales:{y:{beginAtZero:true,ticks:{stepSize:1,font:{family:'Inter',size:10},color:'#6b7a99'},grid:{color:'#f0f2f5'}},
-        x:{grid:{display:false},ticks:{font:{family:'Inter',size:10},color:'#6b7a99'}}}}});
+  CH['meet']=new Chart(document.getElementById('ch-meetings'),{type:'bar',data:{labels:['1 reunión','2 reuniones','3 reuniones','4 reuniones'],datasets:[{data:Object.values(mc),backgroundColor:['rgba(46,204,113,.25)','rgba(46,204,113,.5)','rgba(46,204,113,.75)',GREEN],borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1,font:{family:'Inter',size:10},color:'#6b7a99'},grid:{color:'#f0f2f5'}},x:{grid:{display:false},ticks:{font:{family:'Inter',size:10},color:'#6b7a99'}}}}});
 
   dc('surv');
   const enc={Enviada:out.filter(r=>r.encuesta==='Sí').length,Pendiente:out.filter(r=>r.encuesta!=='Sí').length};
-  CH['surv']=new Chart(document.getElementById('ch-surveys'),{type:'doughnut',
-    data:{labels:Object.keys(enc),datasets:[{data:Object.values(enc),backgroundColor:[GREEN,'#fca5a5'],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
+  CH['surv']=new Chart(document.getElementById('ch-surveys'),{type:'doughnut',data:{labels:Object.keys(enc),datasets:[{data:Object.values(enc),backgroundColor:[GREEN,'#fca5a5'],borderWidth:2,borderColor:'#fff'}]},options:DNUT});
 }
 
 // ── MODAL ────────────────────────────────────────────────────────────────────
@@ -581,16 +738,22 @@ function openModal(t,id=null){
   if(t==='rec'){
     eRecId=id;
     document.getElementById('mtitle-rec').textContent=id?'Editar Búsqueda':'Nueva Búsqueda';
-    const f=['empresa','busqueda','fecha','seniority','tiempo','candidatos','recruiter','sueldo','encuesta','servicio','honorarios'];
-    if(id){const r=recData.find(x=>x.id===id);f.forEach(k=>{document.getElementById('r-'+k).value=r[k]||'';})}
-    else f.forEach(k=>document.getElementById('r-'+k).value='');
+    const fields=['empresa','busqueda','fecha','fechaCierre','seniority','candidatos','recruiter','candidatoSel','estado','encuesta','servicio','honorarios'];
+    if(id){
+      const r=recData.find(x=>x.id===id);
+      fields.forEach(k=>document.getElementById('r-'+k).value=r[k]||'');
+    }else{
+      fields.forEach(k=>document.getElementById('r-'+k).value='');
+      document.getElementById('r-estado').value='Abierta';
+    }
+    updateDiasHint();
     document.getElementById('ov-rec').classList.add('open');
   }else{
     eOutId=id;
     document.getElementById('mtitle-out').textContent=id?'Editar Candidato':'Nuevo Candidato';
-    const f=['candidato','fecha','reuniones','encuesta','honorarios'];
-    if(id){const r=outData.find(x=>x.id===id);f.forEach(k=>{document.getElementById('o-'+k).value=r[k]||'';})}
-    else f.forEach(k=>document.getElementById('o-'+k).value='');
+    const fields=['candidato','fecha','reuniones','encuesta','honorarios'];
+    if(id){const r=outData.find(x=>x.id===id);fields.forEach(k=>document.getElementById('o-'+k).value=r[k]||'');}
+    else fields.forEach(k=>document.getElementById('o-'+k).value='');
     document.getElementById('ov-out').classList.add('open');
   }
 }
@@ -598,25 +761,45 @@ function closeModal(t){document.getElementById('ov-'+t).classList.remove('open')
 function overlayClick(e,t){if(e.target===e.currentTarget)closeModal(t);}
 
 // ── SAVE ─────────────────────────────────────────────────────────────────────
+function setSaving(t,saving){
+  const btn=document.getElementById('btn-save-'+t);
+  btn.disabled=saving;
+  btn.textContent=saving?'Guardando...':'Guardar';
+}
+
 function saveRec(){
   const e={
     empresa:document.getElementById('r-empresa').value.trim(),
     busqueda:document.getElementById('r-busqueda').value.trim(),
     fecha:document.getElementById('r-fecha').value,
+    fechaCierre:document.getElementById('r-fechaCierre').value,
     seniority:document.getElementById('r-seniority').value,
-    tiempo:+document.getElementById('r-tiempo').value||0,
     candidatos:+document.getElementById('r-candidatos').value||0,
     recruiter:document.getElementById('r-recruiter').value.trim(),
-    sueldo:document.getElementById('r-sueldo').value,
+    candidatoSel:document.getElementById('r-candidatoSel').value.trim(),
+    estado:document.getElementById('r-estado').value||'Abierta',
     encuesta:document.getElementById('r-encuesta').value,
     servicio:document.getElementById('r-servicio').value,
     honorarios:+document.getElementById('r-honorarios').value||0,
   };
   if(!e.empresa||!e.busqueda){alert('Completá Empresa y Búsqueda.');return;}
-  if(eRecId){const i=recData.findIndex(x=>x.id===eRecId);recData[i]={...recData[i],...e};}
-  else{e.id=Date.now();recData.push(e);}
-  persist('rec');closeModal('rec');renderAll();
+  setSaving('rec',true);
+  (async()=>{
+    try{
+      if(eRecId){
+        const saved=await sbUpdate('busquedas',eRecId,recToDb(e));
+        const i=recData.findIndex(x=>x.id===eRecId);
+        recData[i]=dbToRec(saved);
+      }else{
+        const saved=await sbInsert('busquedas',recToDb(e));
+        recData.push(dbToRec(saved));
+      }
+      closeModal('rec');renderAll();
+    }catch(err){alert('Error al guardar: '+err.message);}
+    finally{setSaving('rec',false);}
+  })();
 }
+
 function saveOut(){
   const e={
     candidato:document.getElementById('o-candidato').value.trim(),
@@ -626,17 +809,74 @@ function saveOut(){
     honorarios:+document.getElementById('o-honorarios').value||0,
   };
   if(!e.candidato){alert('Ingresá el nombre del candidato.');return;}
-  if(eOutId){const i=outData.findIndex(x=>x.id===eOutId);outData[i]={...outData[i],...e};}
-  else{e.id=Date.now();outData.push(e);}
-  persist('out');closeModal('out');renderAll();
+  setSaving('out',true);
+  (async()=>{
+    try{
+      if(eOutId){
+        const saved=await sbUpdate('outplacement',eOutId,outToDb(e));
+        const i=outData.findIndex(x=>x.id===eOutId);
+        outData[i]=dbToOut(saved);
+      }else{
+        const saved=await sbInsert('outplacement',outToDb(e));
+        outData.push(dbToOut(saved));
+      }
+      closeModal('out');renderAll();
+    }catch(err){alert('Error al guardar: '+err.message);}
+    finally{setSaving('out',false);}
+  })();
 }
 
 function editRec(id){openModal('rec',id);}
 function editOut(id){openModal('out',id);}
-function delRec(id){if(!confirm('¿Eliminar esta búsqueda?'))return;recData=recData.filter(x=>x.id!==id);persist('rec');renderAll();}
-function delOut(id){if(!confirm('¿Eliminar este candidato?'))return;outData=outData.filter(x=>x.id!==id);persist('out');renderAll();}
 
-renderAll();
+function delRec(id){
+  if(!confirm('¿Eliminar esta búsqueda?'))return;
+  sbDelete('busquedas',id).then(()=>{recData=recData.filter(x=>x.id!==id);renderAll();}).catch(err=>alert('Error: '+err.message));
+}
+function delOut(id){
+  if(!confirm('¿Eliminar este candidato?'))return;
+  sbDelete('outplacement',id).then(()=>{outData=outData.filter(x=>x.id!==id);renderAll();}).catch(err=>alert('Error: '+err.message));
+}
+
+// ── EXPORTAR / IMPORTAR ───────────────────────────────────────────────────────
+function exportData(){
+  const payload={version:2,exportedAt:new Date().toISOString(),rec:recData,out:outData};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='ifuskill-rrhh-'+new Date().toISOString().slice(0,10)+'.json';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+}
+
+function importData(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    try{
+      const payload=JSON.parse(e.target.result);
+      if(!payload.rec||!payload.out) throw new Error('Formato inválido');
+      if(!confirm('¿Importar '+payload.rec.length+' búsquedas y '+payload.out.length+' candidatos? Esto reemplazará todos los datos actuales.'))return;
+      showLoading(true,'Importando datos...');
+      await sbDeleteAll('busquedas');
+      await sbDeleteAll('outplacement');
+      const savedRec=await sbBulkInsert('busquedas',payload.rec.map(r=>recToDb({...r,id:undefined})));
+      const savedOut=await sbBulkInsert('outplacement',payload.out.map(r=>outToDb({...r,id:undefined})));
+      recData=savedRec.map(dbToRec);
+      outData=savedOut.map(dbToOut);
+      showLoading(false);
+      renderAll();
+      alert('✅ Datos importados correctamente.');
+    }catch(err){
+      showLoading(false);
+      alert('❌ Error al importar: '+err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value='';
+}
+
+// ── INICIO ────────────────────────────────────────────────────────────────────
+loadAll();
 </script>
 </body>
 </html>
