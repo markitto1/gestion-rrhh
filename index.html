@@ -173,7 +173,7 @@
   <div class="loading-text" id="loading-text">Conectando con la base de datos...</div>
   <div class="loading-sub" id="loading-sub">Los datos se guardan en la nube ☁️</div>
   <div class="error-msg" id="loading-error" style="display:none"></div>
-  <button class="retry-btn" id="retry-btn" style="display:none" onclick="loadAll()">ὐ4 Reintentar</button>
+  <button class="retry-btn" id="retry-btn" style="display:none" onclick="loadAll()">🔄 Reintentar</button>
 </div>
 
 <header class="app-header">
@@ -184,9 +184,9 @@
   </div>
   <div class="header-right">
     <div class="cloud-badge"><span class="cloud-dot"></span> Datos en la nube</div>
-    <button class="io-btn btn-export" onclick="exportData()" title="Descargar copia de seguridad como archivo JSON">Ὃe <span>Exportar</span></button>
+    <button class="io-btn btn-export" onclick="exportData()" title="Descargar copia de seguridad como archivo JSON">💾 <span>Exportar</span></button>
     <label class="io-btn btn-import" title="Restaurar desde archivo JSON" style="cursor:pointer">
-      Ὄ2 <span>Importar</span>
+      📂 <span>Importar</span>
       <input type="file" id="import-input" accept=".json" style="display:none" onchange="importData(event)"/>
     </label>
     <div class="header-tag">Dashboard Interno</div>
@@ -194,8 +194,8 @@
 </header>
 
 <nav class="tab-nav">
-  <button class="tab-btn active" id="tbtn-rec" onclick="switchTab('rec')">ὐd Reclutamiento</button>
-  <button class="tab-btn" id="tbtn-out" onclick="switchTab('out')">ᾑd Outplacement</button>
+  <button class="tab-btn active" id="tbtn-rec" onclick="switchTab('rec')">🔍 Reclutamiento</button>
+  <button class="tab-btn" id="tbtn-out" onclick="switchTab('out')">🤝 Outplacement</button>
 </nav>
 
 <div class="main">
